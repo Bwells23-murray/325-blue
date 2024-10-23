@@ -3,12 +3,10 @@ package User;
 import Skill.*;
 import Job.*;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
+
 
 public class Employee extends User {
 
-    private String firstName, lastName, employeeID;
     private ArrayList<Job> previousJobs = new ArrayList<Job>();
     // For both of these array lists, they will store their values in the CSV file
     // using their toString method

@@ -7,12 +7,12 @@ import Skill.*;
 
 public abstract class User {
 
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
-    private String emailAddress;
-    private String employeeID;
+    protected String firstName;
+    protected String lastName;
+    protected String username;
+    protected String password;
+    protected String emailAddress;
+    protected String employeeID;
 
     public void logIn() {
         // Promt user for username or employee ID
@@ -80,37 +80,44 @@ public abstract class User {
     }
 
     private String encryptPassword(String password) {
-        int operator = Integer.parseInt(String.valueOf(employeeID.charAt(0))); // Uses the employee's ID to encrypt the
+        int operator = getEncryptionOperator(employeeID); // Uses the employee's ID to encrypt the
                                                                                // password
-        String output = null;
+        String output = "";
         int currentCharacterValue;
         for (int i = 0; i < password.length(); i++) {
             currentCharacterValue = password.charAt(i);
-            output += currentCharacterValue + operator;
+            output += (char)(currentCharacterValue * operator);
         }
         return output;
     }
 
     private String decryptPassword(String password) {
-        int operator = Integer.parseInt(String.valueOf(employeeID.charAt(0))); // Uses the employee's ID to encrypt the
+        int operator = getEncryptionOperator(employeeID); // Uses the employee's ID to encrypt the
                                                                                // password
-        String output = null;
+        String output = "";
         int currentCharacterValue;
         for (int i = 0; i < password.length(); i++) {
             currentCharacterValue = password.charAt(i);
-            output += currentCharacterValue - operator;
+            output += (char)(currentCharacterValue / operator);
         }
         return output;
     }
 
+    private int getEncryptionOperator(String key){
+        if(key != null)
+            return (int)((key.charAt(0))) + 3;
+        else
+            return 5;
+    }
+
     // toDatabase giving only name
     protected void writeToDatabase(String empID, String fName, String lName) {
-        if (!inDatabase(empID)) { // If they aren' already in the database, add them to it
+        if (!inDatabase(empID)) { // If they aren't already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
                     new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
-                String newRow = empID + ", " + fName + ", " + lName + "null, null, null, null\n";
+                String newRow = "\n" + empID + "," + fName + "," + lName + ",null,null,null,null,null";
                 writer.write(newRow);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -126,8 +133,8 @@ public abstract class User {
                     // Creates new FileWriter using the CSV file.
                     new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
-                String newRow = empID + ", " + fName + ", " + lName + ", " + email + ", " + uName + ", " + pass
-                        + ", null, null\n";
+                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + "," + encryptPassword(pass)
+                        + ",null,null\n";
                 writer.write(newRow);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -145,8 +152,8 @@ public abstract class User {
                     // Creates new FileWriter using the CSV file.
                     new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
-                String newRow = empID + ", " + fName + ", " + lName + ", " + email + ", " + uName + ", " + pass + ", "
-                        + jobs + ", " + skills + "\n";
+                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + "," + encryptPassword(pass) + ","
+                        + jobs + "," + skills + "\n";
                 writer.write(newRow);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -158,17 +165,33 @@ public abstract class User {
                                                     // username, or email. Returns true if found, false if it doesn't
                                                     // exist
     {
-        Scanner scn = new Scanner("325-blue\\BlueTeamProject\\src\\employees.csv");
-        scn.useDelimiter(", "); // Each value will be treated as the scanner's line since each value is
-                                // seperated by a comma and a space
-        boolean found = false;
-        String currentValue = scn.next();
-        while (scn.hasNext()) { // Checks if there is a next value
-            currentValue = scn.next();
-            if (currentValue.equals(key)) // Checks if the current value is equal to the key
-                found = true;
+        File csv = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
+        Scanner scn;
+        try {
+            scn = new Scanner(csv);
+            scn.useDelimiter(","); // Each value will be treated as the scanner's line since each value is
+            // seperated by a comma and a space
+            
+
+            while (scn.hasNextLine()) { // Checks if there is a next line
+                String line = scn.nextLine();
+                String[] values = line.split(","); //Splits the entire CSV line into an array of strings of each individual field
+                for(String value : values){ //For each of the stringgs in the array,
+                    //value = value.trim(); //Remove whitespace,
+                    if(value.equals(key)){ //Check if its equal to they key
+                        scn.close();
+                        return true; //If it is, return true
+                    }
+                }
+            }
+            scn.close();
+            return false;
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        scn.close();
-        return found;
+        return false;
+
     }
+
 }
