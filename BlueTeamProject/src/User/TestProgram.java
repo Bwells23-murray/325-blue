@@ -1,22 +1,22 @@
 package User;
+import java.io.IOException;
+
 import Job.*;
 import Skill.*;
 
 public class TestProgram {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Manager m = new Manager();
-        Job[] jobsJobs = new Job[0];
-        Skill[] skills = new Skill[0];
-        m.createEmployee("0234", "Ethan", "Sexton");
-        m.createEmployee("0236", "Ron", "Stantler");
-        m.createEmployee("1022", "Skyler", "Kehm");
+        m.createEmployee("0142", "Dave", "Matthew");
+        m.createEmployee("3256", "Jim", "Jimminy");
+        m.createEmployee("9889", "Bobby", "ybboB");
+        m.createEmployee("7462", "Josephine", "Clark");
+        m.createEmployee("6327", "Cantthink", "Ofmoore");
+        m.deleteEmployee("3256");
+        m.editEmployee("0142", "Matthews", 3);
 
-        m.createEmployee("4478", "Jobs", "Steven", "email@email.url", "jsteven", "il0v3myjob22", jobsJobs, skills);
-        Employee sky = new Employee("1022", "Skyler", "Kehm","test@test.test", "skehm", "myl4rve");
-        System.out.println(m.getEmployee("0234"));
-        System.out.println(m.getEmployee("0236"));
-        System.out.println(m.getEmployee("1022"));
-        System.out.println(sky);
+
+      
     }
 }

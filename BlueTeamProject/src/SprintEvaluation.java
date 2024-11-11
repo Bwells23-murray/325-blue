@@ -48,9 +48,11 @@ public class SprintEvaluation {
         // Check if the username and password match the stored credentials
         if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
             System.out.println("Login successful for " + user.getFirstName() + " " + user.getLastName());
+            scnr.close();
             return true;
         } else {
             System.out.println("Login failed. Incorrect username or password.");
+            scnr.close();
             return false;
         }
     }
@@ -63,6 +65,7 @@ public class SprintEvaluation {
         System.out.println("Manager Login:");
         if (!login(manager)) {
             System.out.println("Manager login failed. Cannot proceed with the evaluation.");
+            scnr.close();
             return;
         }
 
@@ -70,6 +73,7 @@ public class SprintEvaluation {
         System.out.println("Employee Login:");
         if (!login(employee)) {
             System.out.println("Employee login failed. Cannot proceed with the evaluation.");
+            scnr.close();
             return;
         }
 
@@ -111,5 +115,6 @@ public class SprintEvaluation {
 
         //saves to a file
         saveToFile();
+        scnr.close();
     }
 }

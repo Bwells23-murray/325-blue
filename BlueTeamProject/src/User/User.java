@@ -64,15 +64,25 @@ public abstract class User {
     }
 
     public void setFirstName(String name) {
+        firstName = name;
     }
 
     public void setLastName(String name) {
+        lastName = name;
     }
 
     public void setId(String id) {
+        employeeID = id;
     }
 
     public void setEmail(String email) {
+        Scanner scn = new Scanner(System.in);
+        while (!isValidEmail(emailAddress)) {
+            System.out.println("Invalid email address. Enter again.");
+            emailAddress = scn.nextLine();
+        }
+        email = emailAddress;
+        scn.close();
     }
 
     public String toString() {
@@ -81,31 +91,31 @@ public abstract class User {
 
     private String encryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID); // Uses the employee's ID to encrypt the
-                                                                               // password
+                                                          // password. User's password shouldn't be stored unencrypted
         String output = "";
         int currentCharacterValue;
         for (int i = 0; i < password.length(); i++) {
             currentCharacterValue = password.charAt(i);
-            output += (char)(currentCharacterValue * operator);
+            output += (char) (currentCharacterValue * operator);
         }
         return output;
     }
 
     private String decryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID); // Uses the employee's ID to encrypt the
-                                                                               // password
+                                                          // password
         String output = "";
         int currentCharacterValue;
         for (int i = 0; i < password.length(); i++) {
             currentCharacterValue = password.charAt(i);
-            output += (char)(currentCharacterValue / operator);
+            output += (char) (currentCharacterValue / operator);
         }
         return output;
     }
 
-    private int getEncryptionOperator(String key){
-        if(key != null)
-            return (int)((key.charAt(0))) + 3;
+    private int getEncryptionOperator(String key) {
+        if (key != null)
+            return (int) ((key.charAt(0))) + 3;
         else
             return 5;
     }
@@ -133,13 +143,52 @@ public abstract class User {
                     // Creates new FileWriter using the CSV file.
                     new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
-                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + "," + encryptPassword(pass)
+                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + ","
+                        + encryptPassword(pass)
                         + ",null,null\n";
                 writer.write(newRow);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected static boolean isValidEmail(String email) {
+        boolean passes = true;
+        int i = 0;
+        char c;
+        int numberOfAtSigns = 0;
+        boolean numberOfCharactersAfterDotPasses = false;
+        int dotLocation = 0;
+        while (i < email.length() && passes) {
+            c = email.charAt(i);
+            if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0'
+                    && c <= '9') || c == '@' || c == '.')) {
+                passes = false;
+            }
+            if (c == '@') {
+                numberOfAtSigns++;
+                if (i == 0) {
+                    passes = false;
+                }
+            } else if (c == '.') {
+                dotLocation = i;
+                if (i == 0) {
+                    passes = false;
+                }
+            }
+            i++;
+        }
+        int numberOfCharactersAfterLastDot = (email.length() - 1)
+                - dotLocation;
+        if (numberOfCharactersAfterLastDot == 3 || numberOfCharactersAfterLastDot == 2) {
+            numberOfCharactersAfterDotPasses = true;
+        }
+        if (!(numberOfAtSigns == 1 && numberOfCharactersAfterDotPasses == true)) {
+            passes = false;
+        }
+        return passes;
+
     }
 
     // toDatabase giving name, login information, and user logged job history and
@@ -152,7 +201,8 @@ public abstract class User {
                     // Creates new FileWriter using the CSV file.
                     new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
-                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + "," + encryptPassword(pass) + ","
+                String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + ","
+                        + encryptPassword(pass) + ","
                         + jobs + "," + skills + "\n";
                 writer.write(newRow);
             } catch (IOException e) {
@@ -171,16 +221,16 @@ public abstract class User {
             scn = new Scanner(csv);
             scn.useDelimiter(","); // Each value will be treated as the scanner's line since each value is
             // seperated by a comma and a space
-            
 
             while (scn.hasNextLine()) { // Checks if there is a next line
                 String line = scn.nextLine();
-                String[] values = line.split(","); //Splits the entire CSV line into an array of strings of each individual field
-                for(String value : values){ //For each of the stringgs in the array,
-                    //value = value.trim(); //Remove whitespace,
-                    if(value.equals(key)){ //Check if its equal to they key
+                String[] values = line.split(","); // Splits the entire CSV line into an array of strings of each
+                                                   // individual field
+                for (String value : values) { // For each of the stringgs in the array,
+                    // value = value.trim(); //Remove whitespace,
+                    if (value.equals(key)) { // Check if its equal to they key
                         scn.close();
-                        return true; //If it is, return true
+                        return true; // If it is, return true
                     }
                 }
             }
