@@ -17,8 +17,6 @@ public class Employee extends User {
         writeToDatabase(empID, first, last, email, user, pass);
     }
 
-    public void answerSurvey(int surveyNumber) {
-    }
 
     public void addPreviousJob(Job job) {
         previousJobs.add(job);
