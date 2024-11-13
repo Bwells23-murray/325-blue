@@ -13,6 +13,7 @@ public abstract class User {
     protected String password;
     protected String emailAddress;
     protected String employeeID;
+    protected File FILEPATH = new File("..\\employees.csv");
 
     public void logIn() {
         // Promt user for username or employee ID
@@ -125,7 +126,7 @@ public abstract class User {
         if (!inDatabase(empID)) { // If they aren't already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
-                    new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
+                    new FileWriter(FILEPATH, true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
                 String newRow = "\n" + empID + "," + fName + "," + lName + ",null,null,null,null,null";
                 writer.write(newRow);
@@ -141,7 +142,7 @@ public abstract class User {
         if (!inDatabase(empID)) { // If they aren' already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
-                    new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
+                    new FileWriter(FILEPATH, true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
                 String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + ","
                         + encryptPassword(pass)
@@ -199,7 +200,7 @@ public abstract class User {
         if (!inDatabase(empID)) { // If they aren' already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
-                    new FileWriter("325-blue\\BlueTeamProject\\src\\employees.csv", true))) {
+                    new FileWriter(FILEPATH, true))) {
                 // Creates new row in CSV file with the parameters recieved by the constructor
                 String newRow = "\n" + empID + "," + fName + "," + lName + "," + email + "," + uName + ","
                         + encryptPassword(pass) + ","
@@ -211,14 +212,14 @@ public abstract class User {
         }
     }
 
-    protected static boolean inDatabase(String key) // Looks for any value in the csv file. Could be employee number,
+    protected boolean inDatabase(String key) // Looks for any value in the csv file. Could be employee number,
                                                     // username, or email. Returns true if found, false if it doesn't
                                                     // exist
     {
-        File csv = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
+        
         Scanner scn;
         try {
-            scn = new Scanner(csv);
+            scn = new Scanner(FILEPATH);
             scn.useDelimiter(","); // Each value will be treated as the scanner's line since each value is
             // seperated by a comma and a space
 

@@ -41,9 +41,8 @@ public class Manager extends User {
                                                                                             // to choose a value to edit
         if ((!inDatabase(id)) || (csvIndex > 7))
             throw new RuntimeException("Invalid input");
-        File csvFile = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
-        File tempFile = new File(csvFile.getAbsolutePath() + ".tmp");
-        BufferedReader buffRead = new BufferedReader(new FileReader(csvFile));
+        File tempFile = FILEPATH;
+        BufferedReader buffRead = new BufferedReader(new FileReader(FILEPATH));
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(tempFile));
 
         String line;
@@ -57,8 +56,8 @@ public class Manager extends User {
                 buffWrite.write(line);
                 buffWrite.newLine();
             }
-            if (csvFile.delete()) {
-                tempFile.renameTo(csvFile);
+            if (FILEPATH.delete()) {
+                tempFile.renameTo(FILEPATH);
             } else {
                 throw new IOException("Could not delete original file");
             }
@@ -76,8 +75,8 @@ public class Manager extends User {
         if (!inDatabase(id))
             throw new RuntimeException("Given ID not in database");
 
-        File initFile = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
-        File tempFile = new File(initFile.getAbsolutePath() + ".tmp");
+        File initFile = FILEPATH;
+        File tempFile = new File(FILEPATH + ".tmp");
         BufferedReader buffRead = new BufferedReader(new FileReader(initFile));
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(tempFile));
 
@@ -109,7 +108,7 @@ public class Manager extends User {
         String output = "";
 
         try {
-            Scanner scn = new Scanner(new File("325-blue/BlueTeamProject/src/employees.csv"));
+            Scanner scn = new Scanner(FILEPATH);
             scn.useDelimiter(","); // Adjust according to your CSV formatting
 
             while (scn.hasNext()) {
