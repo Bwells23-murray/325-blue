@@ -9,7 +9,7 @@ public class Manager extends User {
 
     Employee[] employees = new Employee[20];
 
-    public void createEmployee(String empID, String fName, String lName) {
+    public void createEmployee(String empID, String fName, String lName) throws IOException {
         writeToDatabase(empID, fName, lName);
     }
 
@@ -39,40 +39,80 @@ public class Manager extends User {
 
     public void editEmployee(String id, String newValue, int csvIndex) throws IOException { // Doesn't prompt the user
                                                                                             // to choose a value to edit
-        if ((!inDatabase(id)) || (csvIndex > 7))
+        if ((!inDatabase(id)) || (csvIndex > 7)) {
+            System.out.println("Invalid input: ID not in database or CSV index out of bounds.");
             throw new RuntimeException("Invalid input");
-        File tempFile = new File("tempfile.csv");
-        BufferedReader buffRead = new BufferedReader(new FileReader(FILEPATH));
+        }
+
+        // Define a temporary file with a unique name
+        File originalFile = new File("BlueTeamProject\\src\\employees.csv");  // Path to the original file
+        File tempFile = new File(originalFile.getParent(), "tempFile.csv");  // Temp file in the same directory
+        System.out.println("Temporary file created: " + tempFile.getAbsolutePath());
+
+        // Initialize reader and writer
+        BufferedReader buffRead = new BufferedReader(new FileReader(originalFile));
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(tempFile));
 
-        String line;
         try {
+            String line;
+            boolean isUpdated = false; // Flag to check if any line was updated
+
+            // Read each line from the original file
             while ((line = buffRead.readLine()) != null) {
+                System.out.println("Reading line: " + line);
+
+                // Check if line contains the specified ID
                 if (line.contains(id)) {
+                    System.out.println("ID found in line. Updating line...");
                     String[] lineArr = line.split(",");
-                    lineArr[csvIndex - 1] = newValue;
-                    line = String.join(",", lineArr);
+                    lineArr[csvIndex - 1] = newValue; // Update the specified index with the new value
+                    line = String.join(",", lineArr); // Re-join the array into a line
+                    isUpdated = true; // Mark that we've made an update
+                    System.out.println("Updated line: " + line);
                 }
+
+                // Write the (updated or unchanged) line to the temporary file
                 buffWrite.write(line);
-                buffWrite.newLine();
+                buffWrite.write(System.lineSeparator());
             }
+
+            if (!isUpdated) {
+                System.out.println("No lines were updated; check if the ID and index are correct.");
+            } else {
+                System.out.println("All lines processed and written to temporary file.");
+            }
+
+            buffWrite.flush(); // Ensure all data is written to the temporary file
         } catch (IOException e) {
+            System.out.println("IOException occurred while reading/writing: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            buffRead.close();
-            buffWrite.close();
+            // Ensure resources are closed properly
+            try {
+                buffRead.close();
+                buffWrite.close();
+                System.out.println("Resources closed.");
+            } catch (IOException e) {
+                System.out.println("IOException occurred while closing resources: " + e.getMessage());
+            }
         }
+
+        // Delete the original file and rename the temp file to the original filename
         try {
-            if (FILEPATH.delete()) {
-                if(!tempFile.renameTo(new File("..//..//employees.csv")))
-                    throw new IOException("Could not rename temporary file");
+            if (originalFile.delete()) {
+                System.out.println("Original file deleted successfully.");
+                if (tempFile.renameTo(originalFile)) {
+                    System.out.println("Temporary file renamed to original file name successfully.");
+                } else {
+                    throw new IOException("Could not rename temporary file to original filename.");
+                }
             } else {
-                throw new IOException("Could not delete original file");
+                throw new IOException("Could not delete the original file.");
             }
         } catch (IOException e) {
+            System.out.println("IOException occurred during file deletion/renaming: " + e.getMessage());
             e.printStackTrace();
         }
-    
     }
 
     public void deleteEmployee(String id) throws IOException {
