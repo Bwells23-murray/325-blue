@@ -13,7 +13,7 @@ public abstract class User {
     protected String password;
     protected String emailAddress;
     protected String employeeID;
-    protected File FILEPATH = new File("..\\..\\employees.csv");
+    public File FILEPATH = new File("BlueTeamProject\\src\\employees.csv");
 
     public void logIn() {
         // Promt user for username or employee ID
@@ -122,7 +122,7 @@ public abstract class User {
     }
 
     // toDatabase giving only name
-    protected void writeToDatabase(String empID, String fName, String lName) {
+    protected void writeToDatabase(String empID, String fName, String lName) throws IOException {
         if (!inDatabase(empID)) { // If they aren't already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
@@ -133,6 +133,8 @@ public abstract class User {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            System.err.println("ID already in Database, try changing the ID or editing the user instead");
         }
     }
 
@@ -151,6 +153,8 @@ public abstract class User {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            System.err.println("ID already in Database, try changing the ID or editing the user instead");
         }
     }
 
