@@ -19,6 +19,8 @@ public class TestProgram {
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
+        } finally {
+            System.out.println("Test program finished");
         }
 
 

@@ -13,7 +13,7 @@ public abstract class User {
     protected String password;
     protected String emailAddress;
     protected String employeeID;
-    protected File FILEPATH = new File("..\\employees.csv");
+    protected File FILEPATH = new File("..\\..\\employees.csv");
 
     public void logIn() {
         // Promt user for username or employee ID
