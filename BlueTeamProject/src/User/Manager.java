@@ -41,7 +41,7 @@ public class Manager extends User {
                                                                                             // to choose a value to edit
         if ((!inDatabase(id)) || (csvIndex > 7))
             throw new RuntimeException("Invalid input");
-        File tempFile = FILEPATH;
+        File tempFile = new File("tempfile.csv");
         BufferedReader buffRead = new BufferedReader(new FileReader(FILEPATH));
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(tempFile));
 
@@ -56,17 +56,23 @@ public class Manager extends User {
                 buffWrite.write(line);
                 buffWrite.newLine();
             }
-            if (FILEPATH.delete()) {
-                tempFile.renameTo(FILEPATH);
-            } else {
-                throw new IOException("Could not delete original file");
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             buffRead.close();
             buffWrite.close();
         }
+        try {
+            if (FILEPATH.delete()) {
+                if(!tempFile.renameTo(new File("..//..//employees.csv")))
+                    throw new IOException("Could not rename temporary file");
+            } else {
+                throw new IOException("Could not delete original file");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
     }
 
     public void deleteEmployee(String id) throws IOException {
