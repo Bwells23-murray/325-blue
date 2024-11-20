@@ -25,6 +25,14 @@ public class Employee extends User {
     public void addSkill(Skill skill) {
         skills.add(skill);
     }
+    public ArrayList<Job> getPreviousJobs() {
+        return previousJobs;
+    }
+
+    
+    public ArrayList<Skill> getSkills() {
+        return skills;
+    }
 
     public String toString() {
         return firstName + " " + lastName + " " + employeeID;
