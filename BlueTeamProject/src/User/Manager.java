@@ -1,7 +1,6 @@
 package User;
 
 import java.util.Scanner;
-import Job.*;
 import Skill.*;
 import java.io.*;
 
@@ -14,7 +13,7 @@ public class Manager extends User {
     }
 
     public void createEmployee(String empID, String fName, String lName, String email, String uName, String pass,
-            Job[] jobs, Skill[] skills) {
+            EmployeeJob[] jobs, Skill[] skills) {
         writeToDatabase(empID, fName, lName, email, uName, pass, jobs, skills);
     }
 
@@ -45,7 +44,7 @@ public class Manager extends User {
         }
 
         // Define a temporary file with a unique name
-        File originalFile = new File("BlueTeamProject\\src\\employees.csv");  // Path to the original file
+        File originalFile = new File("325-blue\\BlueTeamProject\\src\\employees.csv");  // Path to the original file
         File tempFile = new File(originalFile.getParent(), "tempFile.csv");  // Temp file in the same directory
         System.out.println("Temporary file created: " + tempFile.getAbsolutePath());
 

@@ -1,6 +1,6 @@
 package GUIs;
 
-import Job.*;
+import User.EmployeeJob;
 import java.awt.*;
 import javax.swing.*;
 
@@ -62,7 +62,7 @@ class HistoryScreen {
     private void refreshJobHistory() {
         // Update the job history display
         StringBuilder jobList = new StringBuilder("Current Job History:\n");
-        for (Job job : jobManager.getJobs()) {
+        for (EmployeeJob job : jobManager.getJobs()) {
             jobList.append(job.toString()).append("\n");
         }
         historyArea.setText(jobList.toString());
@@ -112,16 +112,10 @@ class HistoryScreen {
                 String startDate = startDateField.getText();
                 String endDate = endDateField.getText();
                 double salary = Double.parseDouble(salaryField.getText());
-                String type = (String) typeComboBox.getSelectedItem();
+                //String type = (String) typeComboBox.getSelectedItem();
+                //Commented out in case we end up caring about job types (Jahzara's implementation doesn't account for them)
+                EmployeeJob job = new EmployeeJob(companyName, position, startDate, endDate, salary);;
 
-                Job job;
-                if (type.equals("Full Time")) {
-                    job = new FullTimeJob(companyName, position, startDate, endDate, salary);
-                } else if (type.equals("Part Time")) {
-                    job = new PartTimeJob(companyName, position, startDate, endDate, salary);
-                } else {
-                    job = new ContractJob(companyName, position, startDate, endDate, salary);
-                }
 
                 jobManager.addJob(job);
                 refreshJobHistory();

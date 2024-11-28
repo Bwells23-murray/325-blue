@@ -2,7 +2,6 @@ package User;
 
 import java.util.Scanner;
 import java.io.*;
-import Job.*;
 import Skill.*;
 
 public abstract class User {
@@ -13,16 +12,30 @@ public abstract class User {
     protected String password;
     protected String emailAddress;
     protected String employeeID;
-    public File FILEPATH = new File("BlueTeamProject\\src\\employees.csv");
+    public File FILEPATH = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
 
-    public void logIn() {
-        // Promt user for username or employee ID
-        // Prompt user for password
-        // Search database with username/employee ID as key
-        // Decrypt stored password, check if it matches given password
-        // If both are true, log the user in
+    public boolean login() {
+        
+            Scanner scnr = new Scanner(System.in);
 
-    }
+            System.out.println("Enter username: ");
+            String username = scnr.nextLine();
+
+            System.out.println("Enter password: ");
+            String password = encryptPassword(scnr.nextLine().trim());
+
+            // Check if the username and password match the stored credentials
+            if (this.username.equals(username) && this.password.equals(password)) {
+                System.out.println("Login successful for " + firstName + " " + lastName);
+                scnr.close();
+                return true;
+            } else {
+                System.out.println("Login failed. Incorrect username or password.");
+                scnr.close();
+                return false;
+            }
+        }
+
 
     public void signOut() {
     }
@@ -200,7 +213,7 @@ public abstract class User {
     // skills
     protected void writeToDatabase(String empID, String fName, String lName,
             String email, String uName, String pass,
-            Job[] jobs, Skill[] skills) {
+            EmployeeJob[] jobs, Skill[] skills) {
         if (!inDatabase(empID)) { // If they aren' already in the database, add them to it
             try (BufferedWriter writer = new BufferedWriter(
                     // Creates new FileWriter using the CSV file.
