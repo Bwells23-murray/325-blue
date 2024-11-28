@@ -2,7 +2,6 @@ package User;
 
 import java.util.*;
 
-import Job.Job;
 import Skill.Skill;
 
 public class ViewEmployeeDetails {
@@ -27,11 +26,8 @@ public class ViewEmployeeDetails {
         System.out.println("Username: " + emp.getUsername());
 
         System.out.println("Job History:");
-        for (Job job : emp.getPreviousJobs()) { 
-            System.out.println("- " + job.getName() + " at " + job.getPosition());
-            System.out.println("  Start Date: " + job.getStartDate());
-            System.out.println("  End Date: " + job.getEndDate());
-            System.out.println("  Salary: $" + job.getSalary());
+        for (EmployeeJob job : emp.getPreviousJobs()) { 
+            System.out.println(job.viewJobInfo());
         }
 
         // Display skills 

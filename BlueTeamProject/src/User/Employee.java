@@ -1,13 +1,12 @@
 package User;
 
 import Skill.*;
-import Job.*;
 import java.util.ArrayList;
 
 
 public class Employee extends User {
 
-    private ArrayList<Job> previousJobs = new ArrayList<Job>();
+    private ArrayList<EmployeeJob> previousJobs = new ArrayList<EmployeeJob>();
     // For both of these array lists, they will store their values in the CSV file
     // using their toString method
     private ArrayList<Skill> skills = new ArrayList<Skill>();
@@ -18,14 +17,14 @@ public class Employee extends User {
     }
 
 
-    public void addPreviousJob(Job job) {
+    public void addPreviousJob(EmployeeJob job) {
         previousJobs.add(job);
     }
 
     public void addSkill(Skill skill) {
         skills.add(skill);
     }
-    public ArrayList<Job> getPreviousJobs() {
+    public ArrayList<EmployeeJob> getPreviousJobs() {
         return previousJobs;
     }
 

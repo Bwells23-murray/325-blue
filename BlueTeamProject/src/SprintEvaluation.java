@@ -35,27 +35,27 @@ public class SprintEvaluation {
         }
     }
 
-    // Log in
-    public boolean login(User user) {
-        Scanner scnr = new Scanner(System.in);
+    // Log in - Moved to user. 
+    // public boolean login(User user) {
+    //     Scanner scnr = new Scanner(System.in);
 
-        System.out.println("Enter username: ");
-        String username = scnr.nextLine();
+    //     System.out.println("Enter username: ");
+    //     String username = scnr.nextLine();
 
-        System.out.println("Enter password: ");
-        String password = scnr.nextLine();
+    //     System.out.println("Enter password: ");
+    //     String password = scnr.nextLine();
 
-        // Check if the username and password match the stored credentials
-        if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-            System.out.println("Login successful for " + user.getFirstName() + " " + user.getLastName());
-            scnr.close();
-            return true;
-        } else {
-            System.out.println("Login failed. Incorrect username or password.");
-            scnr.close();
-            return false;
-        }
-    }
+    //     // Check if the username and password match the stored credentials
+    //     if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+    //         System.out.println("Login successful for " + user.getFirstName() + " " + user.getLastName());
+    //         scnr.close();
+    //         return true;
+    //     } else {
+    //         System.out.println("Login failed. Incorrect username or password.");
+    //         scnr.close();
+    //         return false;
+    //     }
+    // }
 
     // Evaluation process
     public void evaluation(User manager, User employee) {
@@ -63,7 +63,7 @@ public class SprintEvaluation {
 
         // Perform login for the manager
         System.out.println("Manager Login:");
-        if (!login(manager)) {
+        if (!(manager.login())) {
             System.out.println("Manager login failed. Cannot proceed with the evaluation.");
             scnr.close();
             return;
@@ -71,7 +71,7 @@ public class SprintEvaluation {
 
         // Perform login for the employee
         System.out.println("Employee Login:");
-        if (!login(employee)) {
+        if (!(employee.login())) {
             System.out.println("Employee login failed. Cannot proceed with the evaluation.");
             scnr.close();
             return;
