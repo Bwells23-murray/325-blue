@@ -1,13 +1,15 @@
 package User;
 
-
+import Skill.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
-public class Employee extends User 
+public class Employee extends User
 {
+
 
     private ArrayList<EmployeeJob> jobHistory = new ArrayList<>();
     private static final String FILEPATH = "employee_jobs.csv"; // Ensure this file exists
@@ -15,15 +17,14 @@ public class Employee extends User
 
     public Employee(String empID, String first, String last, String email, String user, String pass) 
     {
-
-    private ArrayList<EmployeeJob> previousJobs = new ArrayList<EmployeeJob>();
-    // For both of these array lists, they will store their values in the CSV file
-    // using their toString method
-    private ArrayList<Skill> skills = new ArrayList<Skill>();
-
-    public Employee(String empID, String first, String last, String email, String user, String pass) {
     }
 
+    private ArrayList<EmployeeJob> previousJobs = new ArrayList<EmployeeJob>();
+        // For both of these array lists, they will store their values in the CSV file
+        // using their toString method
+    private ArrayList<Skill> skills = new ArrayList<Skill>();
+    
+ 
 
     // Add a job to the employee's job history
     public void addJob(EmployeeJob job) 
@@ -98,7 +99,7 @@ public class Employee extends User
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    }
 
     // Save all jobs to the database for this employee
     private void saveAllJobsToDatabase() {
