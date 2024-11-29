@@ -1,21 +1,47 @@
 package User;
+
 import java.util.*;
 
 public class SearchEmployee {
-    private List<Employee> employees;
+    private List<User> users;
 
-    public SearchEmployee(List<Employee> employees) {
-        this.employees = employees;
+    // Constructor to initialize the list of users
+    public SearchEmployee(List<User> users) {
+        this.users = users;
     }
 
-    public List<Employee> searchByNameOrID(String searchQuery) {
-        List<Employee> results = new ArrayList<>();
-        for (Employee emp : employees) {
-            if (emp != null && (emp.getID().equalsIgnoreCase(searchQuery) ||
-                (emp.getFirstName() + " " + emp.getLastName()).equalsIgnoreCase(searchQuery))) {
-                results.add(emp);
+    // Method to search users by name or ID
+    public List<User> searchByNameOrID(String searchQuery) {
+        List<User> results = new ArrayList<>();
+        
+        // Validate input query
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            System.out.println("Search query cannot be null or empty.");
+            return results; // Return an empty list
+        }
+
+        // Perform search
+        for (User user : users) {
+            if (user != null) {
+                String fullName = (user.getFirstName() + " " + user.getLastName()).trim();
+                if (user.getID().equalsIgnoreCase(searchQuery) || fullName.equalsIgnoreCase(searchQuery)) {
+                    results.add(user);
+                }
             }
         }
         return results;
+    }
+
+    // Optional: Display results for debugging or logging purposes
+    public void displaySearchResults(String searchQuery) {
+        List<User> results = searchByNameOrID(searchQuery);
+        if (results.isEmpty()) {
+            System.out.println("No matching users found for query: " + searchQuery);
+        } else {
+            System.out.println("Search results:");
+            for (User user : results) {
+                System.out.println(user.toString());
+            }
+        }
     }
 }

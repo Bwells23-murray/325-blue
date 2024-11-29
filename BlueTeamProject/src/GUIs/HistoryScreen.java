@@ -1,5 +1,6 @@
 package GUIs;
 
+
 import User.EmployeeJob;
 import java.awt.*;
 import javax.swing.*;
@@ -112,10 +113,8 @@ class HistoryScreen {
                 String startDate = startDateField.getText();
                 String endDate = endDateField.getText();
                 double salary = Double.parseDouble(salaryField.getText());
-                //String type = (String) typeComboBox.getSelectedItem();
-                //Commented out in case we end up caring about job types (Jahzara's implementation doesn't account for them)
-                EmployeeJob job = new EmployeeJob(companyName, position, startDate, endDate, salary);;
 
+                EmployeeJob job = new EmployeeJob(position, companyName, startDate, endDate, salary);
 
                 jobManager.addJob(job);
                 refreshJobHistory();
