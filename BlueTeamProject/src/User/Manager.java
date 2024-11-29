@@ -1,8 +1,16 @@
 package User;
 
 
+import java.util.Arrays;
 import java.util.Scanner;
 import Skill.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Manager extends User {
 
@@ -20,10 +28,8 @@ public class Manager extends User {
     }
 
     public void createEmployee(String empID, String fName, String lName, String email, String uName, String pass,
-            EmployeeJob[] jobs, Skill[] skills) {
+            EmployeeJob[] jobs, Skill[] skills) throws IOException {
         writeToDatabase(empID, fName, lName, email, uName, pass, jobs, skills);
-    }
-
 
         String employeeData = empID + "," + fName + "," + lName + ",,,,,";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
@@ -47,11 +53,12 @@ public class Manager extends User {
         File originalFile = new File("325-blue\\BlueTeamProject\\src\\employees.csv");  // Path to the original file
         File tempFile = new File(originalFile.getParent(), "tempFile.csv");  // Temp file in the same directory
         System.out.println("Temporary file created: " + tempFile.getAbsolutePath());
-
+        Boolean updated = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
+            
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");

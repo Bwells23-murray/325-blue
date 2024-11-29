@@ -13,10 +13,7 @@ public abstract class User {
     protected String emailAddress;
     protected String employeeID;
 
-    protected String password;  // Add a field for password
-    public File FILEPATH = new File("BlueTeamProject\\src\\employees.csv");
-
-    // Constructor with parameters
+    protected String password;  
 
     public File FILEPATH = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
 
@@ -120,7 +117,7 @@ public abstract class User {
 
 
     // Password Encryption
-    private String encryptPassword(String password) {
+    protected String encryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID);
         StringBuilder encrypted = new StringBuilder();
         for (char c : password.toCharArray()) {
@@ -130,7 +127,7 @@ public abstract class User {
         return encrypted.toString();
     }
 
-    private String decryptPassword(String password) {
+    protected String decryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID);
         StringBuilder decrypted = new StringBuilder();
         for (char c : password.toCharArray()) {
