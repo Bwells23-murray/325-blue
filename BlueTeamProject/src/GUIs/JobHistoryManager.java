@@ -1,23 +1,24 @@
 package GUIs;
 
-import Job.Job;
+import User.Employee;
+import User.EmployeeJob;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JobHistoryManager {
-    private List<Job> jobHistory;
+    private List<EmployeeJob> jobHistory;
 
     public JobHistoryManager() {
         jobHistory = new ArrayList<>();
     }
 
     // Add a job to the history
-    public void addJob(Job job) {
+    public void addJob(EmployeeJob job) {
         jobHistory.add(job);
     }
 
     // Get all jobs
-    public List<Job> getJobs() {
+    public List<EmployeeJob> getJobs() {
         return jobHistory;
     }
 }

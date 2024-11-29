@@ -1,9 +1,6 @@
 package User;
 import java.io.IOException;
 
-import Job.*;
-import Skill.*;
-
 public class TestProgram {
 
     public static void main(String[] args) throws IOException {
