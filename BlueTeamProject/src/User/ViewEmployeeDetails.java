@@ -41,6 +41,7 @@ public class ViewEmployeeDetails {
                 System.out.println("  End Date: " + job.getEndDate());
                 System.out.println("  Salary: $" + job.getSalary());
             }
+
         }
 
         // Display skills

@@ -2,6 +2,7 @@ package User;
 
 import java.io.*;
 import java.util.*;
+
 import Skill.*;
 
 public abstract class User {
@@ -11,10 +12,42 @@ public abstract class User {
     protected String username;
     protected String emailAddress;
     protected String employeeID;
+
     protected String password;  // Add a field for password
     public File FILEPATH = new File("BlueTeamProject\\src\\employees.csv");
 
     // Constructor with parameters
+
+    public File FILEPATH = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
+
+    public boolean login() {
+        
+            Scanner scnr = new Scanner(System.in);
+
+            System.out.println("Enter username: ");
+            String username = scnr.nextLine();
+
+            System.out.println("Enter password: ");
+            String password = encryptPassword(scnr.nextLine().trim());
+
+            // Check if the username and password match the stored credentials
+            if (this.username.equals(username) && this.password.equals(password)) {
+                System.out.println("Login successful for " + firstName + " " + lastName);
+                scnr.close();
+                //Set parameters to parameters from database
+                return true;
+            } else {
+                System.out.println("Login failed. Incorrect username or password.");
+                scnr.close();
+                return false;
+            }
+        }
+
+
+    public void signOut() {
+    }
+
+
     public User(String empID, String fName, String lName, String email, String uName, String pass) {
         if (empID == null || empID.isEmpty()) {
             throw new IllegalArgumentException("Employee ID cannot be null or empty.");
@@ -85,12 +118,14 @@ public abstract class User {
                (employeeID != null ? employeeID : "No ID") + ")";
     }
 
+
     // Password Encryption
     private String encryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID);
         StringBuilder encrypted = new StringBuilder();
         for (char c : password.toCharArray()) {
             encrypted.append((char) (c * operator));
+
         }
         return encrypted.toString();
     }
@@ -153,12 +188,13 @@ public abstract class User {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private String arrayToCSV(Object[] array) {
         StringBuilder sb = new StringBuilder();
         for (Object obj : array) {
-            sb.append(obj.toString()).append(";");
+            sb.append(obj.toString()).append(",");
         }
         return sb.toString();
     }

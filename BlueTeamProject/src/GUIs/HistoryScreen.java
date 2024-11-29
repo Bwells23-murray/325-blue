@@ -1,7 +1,7 @@
 package GUIs;
 
-import User.EmployeeJob;
 
+import User.EmployeeJob;
 import java.awt.*;
 import javax.swing.*;
 
