@@ -28,6 +28,7 @@ public abstract class User {
             if (this.username.equals(username) && this.password.equals(password)) {
                 System.out.println("Login successful for " + firstName + " " + lastName);
                 scnr.close();
+                //Set parameters to parameters from database
                 return true;
             } else {
                 System.out.println("Login failed. Incorrect username or password.");
@@ -103,7 +104,7 @@ public abstract class User {
         return "";
     }
 
-    private String encryptPassword(String password) {
+    protected String encryptPassword(String password) {
         int operator = getEncryptionOperator(employeeID); // Uses the employee's ID to encrypt the
                                                           // password. User's password shouldn't be stored unencrypted
         String output = "";
