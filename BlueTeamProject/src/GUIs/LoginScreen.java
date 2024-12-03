@@ -72,18 +72,17 @@ public class LoginScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if(usernameField.getText().equals("BluAdmin") && passwordField.getText().equals("1024"))
+                if(usernameField.getText().trim().equals("BluAdmin") && passwordField.getText().trim().equals("1024"))
                 {
+                    new ScrollDisplayScreen(); // Open the selection screen
                     frame.dispose(); // Close the current frame
-                    new ManagerScreen(); // Open the selection screen
+                } else if (usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
+                {
+                    new EvaluationScreen(); 
+                    frame.dispose(); // Close the current frame
                     
-                } else if (usernameField.getText().equals("Bluser") && passwordField.getText().equals("9998"))
-                {
-                    frame.dispose(); // Close the current frame
-                    new UserScreen(); // Open the selection screen
                 } else {
-                    frame.dispose();
-                    new LoginScreen();
+                    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
                 }
 
             }

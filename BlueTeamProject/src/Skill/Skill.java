@@ -2,7 +2,7 @@ package Skill;
 
 public abstract class Skill {
     private String skillName, skillType;
-    private int skillLevel;
+    private int skillLevel, skillUsefulness;
 
     // #region Accessors
     public String getName() {
@@ -15,6 +15,10 @@ public abstract class Skill {
 
     public int getLevel() {
         return skillLevel;
+    }
+
+    public int getUsefullness() {
+        return skillUsefulness;
     }
 
     // #region Mutators
@@ -30,11 +34,15 @@ public abstract class Skill {
         skillLevel = level;
     }
 
+    public void setUsefullness(int usefulness) {
+        skillUsefulness = usefulness;
+    }
     // #region Constructors
-    public Skill(String name, String type, int level) {
+    public Skill(String name, String type, int level, int usefullness) {
         skillName = name;
         skillType = type;
         skillLevel = level;
+        skillUsefulness = usefullness;
     }
 
     public Skill() {
@@ -45,4 +53,7 @@ public abstract class Skill {
         System.out.println(getType() + " of " + getName() + " has a level of " + getLevel() + ".");
     }
 
+    public String toString(){
+        return skillName + ", " + skillType + ", " + skillLevel + ", " + skillUsefulness;
+    }
 }

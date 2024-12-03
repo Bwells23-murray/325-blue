@@ -102,7 +102,7 @@ public class SkillsScreen {
             try {
                 String skillName = skillNameField.getText();
                 int skillLevel = Integer.parseInt(skillLevelField.getText());
-                String skillUsefulness = skillUsefulnessField.getText();
+                int skillUsefulness = Integer.parseInt(skillUsefulnessField.getText());
                 String type = (String) typeComboBox.getSelectedItem();
 
                 if (skillLevel < 1 || skillLevel > 10 ) {
@@ -111,13 +111,13 @@ public class SkillsScreen {
 
                 Skill skill;
                 if (type.equals("Gift")) {
-                    skill = new Gift(skillName, skillUsefulness, skillLevel);
+                    skill = new Gift(skillName, skillLevel, skillUsefulness);
                 } else if (type.equals("Hard Skill")) {
-                    skill = new HardSkill(skillName, skillUsefulness, skillLevel);
+                    skill = new HardSkill(skillName, skillLevel, skillUsefulness);
                 } else if (type.equals("Soft Skill")) {
-                    skill = new SoftSkill(skillName, skillUsefulness, skillLevel);
+                    skill = new SoftSkill(skillName, skillLevel, skillUsefulness);
                 } else {
-                    skill = new Virtue(skillName, skillUsefulness, skillLevel);
+                    skill = new Virtue(skillName, skillLevel, skillUsefulness);
                 }
 
                 skillManager.addSkill(skill);
