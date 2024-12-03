@@ -92,7 +92,7 @@ public class EvaluationScreen {
     }
 
     private void saveToFile(String answers) {
-        String file = "sprint_evaluation_" + employeeName + ".txt";
+        String file = "325-blue\\BlueTeamProject\\output\\sprint_evaluation_" + employeeName + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(dateOfEval + "\n");

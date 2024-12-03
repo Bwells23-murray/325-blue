@@ -46,7 +46,7 @@ public class Employee extends User
         String username = scnr.nextLine();
 
         System.out.println("Enter password: ");
-        String password = encryptPassword(scnr.nextLine().trim());
+        String password = scnr.nextLine();
 
         // Check if the username and password match the stored credentials
         if (this.username.equals(username) && this.password.equals(password)) {
@@ -57,6 +57,18 @@ public class Employee extends User
         } else {
             System.out.println("Login failed. Incorrect username or password.");
             scnr.close();
+            return false;
+        }
+    }
+    public boolean login(String username, String password) {
+
+        // Check if the username and password match the stored credentials
+        if (this.username.equals(username) && this.password.equals(password)) {
+            System.out.println("Login successful for " + firstName + " " + lastName);
+            //Set parameters to parameters from database
+            return true;
+        } else {
+            System.out.println("Login failed. Incorrect username or password.");
             return false;
         }
     }
