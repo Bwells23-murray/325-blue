@@ -3,6 +3,7 @@ package GUIs;
 import Skill.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class SkillsScreen {
     private JFrame frame;
@@ -22,7 +23,9 @@ public class SkillsScreen {
         frame.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.getContentPane().setBackground(new Color(240, 230, 140));
+
+        // Set background color to match other screens
+        frame.getContentPane().setBackground(new Color(140, 190, 230)); // Matching color
 
         // Title label
         JLabel skillsLabel = new JLabel("Skills", SwingConstants.CENTER);
@@ -32,11 +35,16 @@ public class SkillsScreen {
         // Skills display area
         skillsArea = new JTextArea();
         skillsArea.setEditable(false);
+        skillsArea.setBackground(new Color(173, 216, 230)); // Light blue background for the text area
+        Border border = BorderFactory.createLineBorder(new Color(0, 0, 139), 2); // Dark blue border
+        skillsArea.setBorder(border);
         JScrollPane scrollPane = new JScrollPane(skillsArea);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Buttons panel
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(new Color(140, 190, 230)); // Set background color for button panel
+
         JButton addButton = new JButton("Add Skill");
         JButton backButton = new JButton("Back");
 
@@ -79,6 +87,9 @@ public class SkillsScreen {
         dialog.setSize(300, 400);
         dialog.setLayout(new GridLayout(7, 2));
 
+        // Set background color for dialog components
+        dialog.getContentPane().setBackground(new Color(173, 216, 230)); // Light blue background
+
         // Input fields for skill details
         JTextField skillNameField = new JTextField();
         JTextField skillLevelField = new JTextField("1 - 10");
@@ -89,6 +100,17 @@ public class SkillsScreen {
 
         JButton saveButton = new JButton("Save");
         JButton cancelButton = new JButton("Cancel");
+
+        // Create custom borders for the text fields
+        Border textFieldBorder = BorderFactory.createLineBorder(new Color(0, 0, 139), 2); // Darker blue border
+        skillNameField.setBackground(new Color(173, 216, 230));
+        skillNameField.setBorder(textFieldBorder);
+
+        skillLevelField.setBackground(new Color(173, 216, 230));
+        skillLevelField.setBorder(textFieldBorder);
+
+        skillUsefulnessField.setBackground(new Color(173, 216, 230));
+        skillUsefulnessField.setBorder(textFieldBorder);
 
         // Add fields to the dialog
         dialog.add(new JLabel("Skill Name:"));
@@ -140,4 +162,3 @@ public class SkillsScreen {
         dialog.setVisible(true);
     }
 }
-
