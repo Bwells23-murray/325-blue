@@ -74,13 +74,11 @@ public class LoginScreen {
                 
                 if(usernameField.getText().trim().equals("BluAdmin") && passwordField.getText().trim().equals("1024"))
                 {
-                    new ManagerScreen(); // Open the selection screen
+                    new ScrollDisplayScreen(); // Open the selection screen
                     frame.dispose(); // Close the current frame
-                    
-                    
                 } else if (usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
                 {
-                    new UserScreen(); // Open the selection screen
+                    new EvaluationScreen(); 
                     frame.dispose(); // Close the current frame
                     
                 } else {

@@ -24,6 +24,8 @@ public class EvaluationScreen {
         this.employeeID = employeeID;
     }
 
+    public EvaluationScreen(){}
+    
     public void startEvaluation() {
         // Create the evaluation window (frame)
         JFrame evaluationFrame = new JFrame("Evaluation Screen");
