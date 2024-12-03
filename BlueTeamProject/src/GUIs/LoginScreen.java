@@ -68,7 +68,8 @@ public class LoginScreen {
         middlePanel.add(Box.createVerticalGlue()); // Space below buttons
 
         // Add action listener to the login button
-        loginButton.addActionListener(new ActionListener() {
+        loginButton.addActionListener(new ActionListener() 
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -76,14 +77,19 @@ public class LoginScreen {
                 {
                     new ScrollDisplayScreen(); // Open the selection screen
                     frame.dispose(); // Close the current frame
-                } else if (usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
+                } else
                 {
+                    if(usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
+                    {
                     EvaluationScreen evaluationScreen = new EvaluationScreen(null, null, null, null);  // Correct constructor
                     evaluationScreen.startEvaluation();  // Start the evaluation process
                     frame.dispose(); // Close the current frame
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
-                }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(frame, "Invalid username or password.");
+                    }
+                } 
 
             }
         });
