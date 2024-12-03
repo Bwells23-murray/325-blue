@@ -6,40 +6,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-public class Employee extends User
-{
-
+public class Employee extends User {
 
     private ArrayList<EmployeeJob> jobHistory = new ArrayList<>();
     private static final String FILEPATH = "employee_jobs.csv"; // Ensure this file exists
 
-
-    public Employee(String empID, String first, String last, String email, String user, String pass) 
-    {
+    public Employee(String empID, String first, String last, String email, String user, String pass) {
     }
 
     private ArrayList<EmployeeJob> previousJobs = new ArrayList<EmployeeJob>();
-        // For both of these array lists, they will store their values in the CSV file
-        // using their toString method
+    // For both of these array lists, they will store their values in the CSV file
+    // using their toString method
     private ArrayList<Skill> skills = new ArrayList<Skill>();
-    
- 
 
     // Add a job to the employee's job history
-    public void addJob(EmployeeJob job) 
-    {
+    public void addJob(EmployeeJob job) {
         jobHistory.add(job);
         saveAllJobsToDatabase();
     }
 
     // View all jobs for this employee
-    public List<EmployeeJob> getJobHistory() 
-    {
+    public List<EmployeeJob> getJobHistory() {
         return new ArrayList<>(jobHistory); // Return a copy to avoid external modifications
     }
+
     public boolean login() {
-    
+
         Scanner scnr = new Scanner(System.in);
 
         System.out.println("Enter username: ");
@@ -52,7 +44,7 @@ public class Employee extends User
         if (this.username.equals(username) && this.password.equals(password)) {
             System.out.println("Login successful for " + firstName + " " + lastName);
             scnr.close();
-            //Set parameters to parameters from database
+            // Set parameters to parameters from database
             return true;
         } else {
             System.out.println("Login failed. Incorrect username or password.");
@@ -60,12 +52,13 @@ public class Employee extends User
             return false;
         }
     }
+
     public boolean login(String username, String password) {
 
         // Check if the username and password match the stored credentials
         if (this.username.equals(username) && this.password.equals(password)) {
             System.out.println("Login successful for " + firstName + " " + lastName);
-            //Set parameters to parameters from database
+            // Set parameters to parameters from database
             return true;
         } else {
             System.out.println("Login failed. Incorrect username or password.");
@@ -73,16 +66,13 @@ public class Employee extends User
         }
     }
 
-    
-
     public void addPreviousJob(EmployeeJob job) {
         previousJobs.add(job);
 
     }
 
     // Edit an existing job
-    public void editJob(int index, EmployeeJob updatedJob) 
-    {
+    public void editJob(int index, EmployeeJob updatedJob) {
         if (index >= 0 && index < jobHistory.size()) {
             jobHistory.set(index, updatedJob);
             saveAllJobsToDatabase(); // Save all jobs to the file
@@ -90,16 +80,12 @@ public class Employee extends User
             System.out.println("Invalid job index.");
         }
     }
-    
 
     // Load job history from the database
-    private void loadJobsFromDatabase() 
-    {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) 
-        {
+    private void loadJobsFromDatabase() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
             String line;
-            while ((line = reader.readLine()) != null) 
-            {
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts[0].equals(employeeID)) { // Check if this line matches the employee ID
                     EmployeeJob job = EmployeeJob.fromCSV(line);
@@ -148,7 +134,8 @@ public class Employee extends User
     }
 
     public List<Employee> getSkills() {
-        // Just put this here becasuse if we need skills we n eed a methods but i wasnt sure ):
+        // Just put this here becasuse if we need skills we n eed a methods but i wasnt
+        // sure ):
         throw new UnsupportedOperationException("Unimplemented method 'getSkills'");
     }
 }

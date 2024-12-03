@@ -8,7 +8,7 @@ public class TestProgram {
             Manager m = new Manager();
             /*Tries to create several employees, delete one of them, and edit one of their values.
             Output should be:
-            0142,Dave,Matthew,null,null,null,null,null
+            0142,Jorge,Matthew,null,null,null,null,null
             9889,Bobby,ybboB,null,null,null,null,null
             7462,Josephine,Clark,null,null,null,null,null
             6327,Cantthink,Ofmoore,null,null,null,null,null

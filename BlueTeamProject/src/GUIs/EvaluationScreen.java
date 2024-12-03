@@ -1,9 +1,11 @@
 package GUIs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -26,11 +28,12 @@ public class EvaluationScreen {
 
     public EvaluationScreen(){}
     
-    public void startEvaluation() {
+    public void startEvaluation() throws IOException {
         // Create the evaluation window (frame)
         JFrame evaluationFrame = new JFrame("Evaluation Screen");
         evaluationFrame.setSize(600, 600);
         evaluationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        evaluationFrame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

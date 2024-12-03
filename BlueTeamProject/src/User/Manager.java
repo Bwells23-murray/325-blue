@@ -1,6 +1,5 @@
 package User;
 
-
 import java.util.Arrays;
 import Skill.*;
 
@@ -15,8 +14,8 @@ public class Manager extends User {
 
     Employee[] employees = new Employee[20];
     protected File database = new File("325-blue\\BlueTeamProject\\output\\employees.csv");
-    
-    public void testFile(){
+
+    public void testFile() {
         System.out.println(database.getAbsolutePath());
         System.out.println(database.getParentFile());
         System.out.println(database);
@@ -53,17 +52,15 @@ public class Manager extends User {
             throw new IllegalArgumentException("Invalid index for editing. Index must be between 1 and 7.");
         }
 
-
         // Define a temporary file with a unique name
-        File originalFile = database;  // Path to the original file
-        File tempFile = new File(originalFile.getParent(), "tempFile.csv");  // Temp file in the same directory
+        File originalFile = database; // Path to the original file
+        File tempFile = new File(originalFile.getParent(), "tempFile.csv"); // Temp file in the same directory
         System.out.println("Temporary file created: " + tempFile.getAbsolutePath());
         Boolean updated = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(database));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
-            
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
@@ -96,7 +93,7 @@ public class Manager extends User {
         boolean deleted = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(database));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -118,8 +115,6 @@ public class Manager extends User {
         }
     }
 
-
-
     public boolean inDatabase(String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(database))) {
             String line;
@@ -133,7 +128,6 @@ public class Manager extends User {
         }
         return false; // Added this return statement to handle when no ID is found
     }
-    
 
     // Helper method to replace the original file with a temp file
     private void replaceOriginalFile(File tempFile) throws IOException {
