@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class LoginScreen {
     private JFrame frame;
     private JTextField usernameField;
-    private JPasswordField passwordField;
+    private JTextField passwordField;
 
     public LoginScreen() {
         frame = new JFrame("Login");
@@ -45,12 +45,12 @@ public class LoginScreen {
         middlePanel.add(usernamePanel);
 
         // Add password field
-        JPanel passwordPanel = new JPanel();
-        passwordPanel.setBackground(new Color(173, 216, 230)); // Light blue
+        JPanel textPanel = new JPanel();
+        textPanel.setBackground(new Color(173, 216, 230)); // Light blue
         passwordField = new JPasswordField(15);
-        passwordPanel.add(new JLabel("Password: "));
-        passwordPanel.add(passwordField);
-        middlePanel.add(passwordPanel);
+        textPanel.add(new JLabel("Password: "));
+        textPanel.add(passwordField);
+        middlePanel.add(textPanel);
 
         // Add vertical glue to center the button
         middlePanel.add(Box.createVerticalGlue()); // Space above button
@@ -71,9 +71,21 @@ public class LoginScreen {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Directly go to SelectionScreen
-                frame.dispose(); // Close the current frame
-                new SelectionScreen(); // Open the selection screen
+                
+                if(usernameField.getText().equals("BluAdmin") && passwordField.getText().equals("1024"))
+                {
+                    frame.dispose(); // Close the current frame
+                    new ManagerScreen(); // Open the selection screen
+                    
+                } else if (usernameField.getText().equals("Bluser") && passwordField.getText().equals("9998"))
+                {
+                    frame.dispose(); // Close the current frame
+                    new UserScreen(); // Open the selection screen
+                } else {
+                    frame.dispose();
+                    new LoginScreen();
+                }
+
             }
         });
 

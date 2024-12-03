@@ -25,7 +25,7 @@ public abstract class User {
             String username = scnr.nextLine();
 
             System.out.println("Enter password: ");
-            String password = encryptPassword(scnr.nextLine().trim());
+            String password = scnr.nextLine().trim();
 
             // Check if the username and password match the stored credentials
             if (this.username.equals(username) && this.password.equals(password)) {
@@ -54,7 +54,7 @@ public abstract class User {
         this.lastName = lName != null ? lName : "Unknown";
         this.emailAddress = email != null ? email : "NoEmailProvided";
         this.username = uName != null ? uName : "NoUsername";
-        this.password = encryptPassword(pass);  // Store only encrypted password
+        this.password = pass;  
     }
 
     // Default Constructor
@@ -66,7 +66,7 @@ public abstract class User {
     }
 
     public String getPassword() {
-        return decryptPassword(password);
+        return password;
     }
 
     public String getEmail() {
@@ -115,31 +115,6 @@ public abstract class User {
                (employeeID != null ? employeeID : "No ID") + ")";
     }
 
-
-    // Password Encryption
-    protected String encryptPassword(String password) {
-        int operator = getEncryptionOperator(employeeID);
-        StringBuilder encrypted = new StringBuilder();
-        for (char c : password.toCharArray()) {
-            encrypted.append((char) (c * operator));
-
-        }
-        return encrypted.toString();
-    }
-
-    protected String decryptPassword(String password) {
-        int operator = getEncryptionOperator(employeeID);
-        StringBuilder decrypted = new StringBuilder();
-        for (char c : password.toCharArray()) {
-            decrypted.append((char) (c / operator));
-        }
-        return decrypted.toString();
-    }
-
-    private int getEncryptionOperator(String key) {
-        return (key != null && !key.isEmpty()) ? (int) key.charAt(0) + 3 : 5;
-    }
-
     // Write User to Database
     protected void writeToDatabase(String empID, String fName, String lName) throws IOException {
         if (!inDatabase(empID)) {
@@ -157,7 +132,7 @@ public abstract class User {
             if (!inDatabase(empID)) {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
                     String newRow = empID + "," + fName + "," + lName + "," + email + "," + uName + "," +
-                                    encryptPassword(pass) + ",null,null\n";
+                                    pass + ",null,null\n";
                     writer.write(newRow);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -176,7 +151,7 @@ public abstract class User {
             if (!inDatabase(empID)) {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
                     String newRow = empID + "," + fName + "," + lName + "," + email + "," + uName + "," +
-                                    encryptPassword(pass) + "," + arrayToCSV(jobs) + "," + arrayToCSV(skills) + "\n";
+                                    pass + "," + arrayToCSV(jobs) + "," + arrayToCSV(skills) + "\n";
                     writer.write(newRow);
                 } catch (IOException e) {
                     e.printStackTrace();
