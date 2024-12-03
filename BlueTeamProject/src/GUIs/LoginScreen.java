@@ -78,9 +78,9 @@ public class LoginScreen {
                     frame.dispose(); // Close the current frame
                 } else if (usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
                 {
-                    new EvaluationScreen(); 
+                    EvaluationScreen evaluationScreen = new EvaluationScreen(null, null, null, null);  // Correct constructor
+                    evaluationScreen.startEvaluation();  // Start the evaluation process
                     frame.dispose(); // Close the current frame
-                    
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid username or password.");
                 }

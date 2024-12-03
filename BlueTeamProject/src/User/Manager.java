@@ -2,7 +2,6 @@ package User;
 
 
 import java.util.Arrays;
-import java.util.Scanner;
 import Skill.*;
 
 import java.io.BufferedReader;
