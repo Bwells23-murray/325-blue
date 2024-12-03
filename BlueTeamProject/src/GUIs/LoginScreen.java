@@ -82,8 +82,7 @@ public class LoginScreen {
                     frame.dispose(); // Close the current frame
                     new UserScreen(); // Open the selection screen
                 } else {
-                    frame.dispose();
-                    new LoginScreen();
+                    JOptionPane.showMessageDialog(frame, "Invalid username or password.");
                 }
 
             }
