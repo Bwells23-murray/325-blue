@@ -1,11 +1,11 @@
 package GUIs;
 
-
 import User.EmployeeJob;
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 
-class HistoryScreen {
+public class HistoryScreen {
     private JFrame frame;
     private JTextArea historyArea;
     private JobHistoryManager jobManager;
@@ -46,7 +46,7 @@ class HistoryScreen {
 
         // Back button
         backButton.addActionListener(e -> {
-            new ManagerScreen(); // Return to the ManagerScreen
+            new ManagerScreen(); // Return to the ManagerScreen (make sure to define this class)
             frame.dispose();
         });
 
@@ -63,8 +63,9 @@ class HistoryScreen {
     private void refreshJobHistory() {
         // Update the job history display
         StringBuilder jobList = new StringBuilder("Current Job History:\n");
-        for (EmployeeJob job : jobManager.getJobs()) {
-            jobList.append(job.toString()).append("\n");
+        List<EmployeeJob> jobs = jobManager.getJobs();
+        for (EmployeeJob job : jobs) {
+            jobList.append(job.viewJobInfo()).append("\n");
         }
         historyArea.setText(jobList.toString());
     }
@@ -82,9 +83,6 @@ class HistoryScreen {
         JTextField endDateField = new JTextField("MMDDYYYY");
         JTextField salaryField = new JTextField();
 
-        JLabel typeLabel = new JLabel("Job Type:");
-        JComboBox<String> typeComboBox = new JComboBox<>(new String[]{"Full Time", "Part Time", "Contract"});
-
         JButton saveButton = new JButton("Save");
         JButton cancelButton = new JButton("Cancel");
 
@@ -99,8 +97,6 @@ class HistoryScreen {
         dialog.add(endDateField);
         dialog.add(new JLabel("Salary/Wage:"));
         dialog.add(salaryField);
-        dialog.add(typeLabel);
-        dialog.add(typeComboBox);
 
         dialog.add(saveButton);
         dialog.add(cancelButton);
