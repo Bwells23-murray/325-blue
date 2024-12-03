@@ -13,6 +13,7 @@ public class TestProgram {
             7462,Josephine,Clark,null,null,null,null,null
             6327,Cantthink,Ofmoore,null,null,null,null,null
             */
+            m.testFile();
             m.createEmployee("0143", "Daviditto", "Matthew");
             m.createEmployee("3256", "Jim", "Jimminy");
             m.createEmployee("9889", "Bobby", "ybboB");
