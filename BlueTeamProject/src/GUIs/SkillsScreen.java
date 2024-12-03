@@ -60,10 +60,15 @@ public class SkillsScreen {
     }
 
     private void refreshSkills() {
-        // Update the skills display
+        // Update the skills display with formatted output
         StringBuilder skillList = new StringBuilder("Current Skills:\n");
         for (Skill skill : skillManager.getSkills()) {
-            skillList.append(skill.toString()).append("\n");
+            // Format each skill with Name, Level, and Usefulness
+            skillList.append("Name: ").append(skill.getName())
+                      .append("\nLevel: ").append(skill.getLevel())
+                      .append("\nUsefulness: ").append(skill.getUsefulness())
+                      .append("\nType: ").append(skill.getType())
+                      .append("\n ___________________________");
         }
         skillsArea.setText(skillList.toString());
     }
@@ -105,7 +110,7 @@ public class SkillsScreen {
                 int skillUsefulness = Integer.parseInt(skillUsefulnessField.getText());
                 String type = (String) typeComboBox.getSelectedItem();
 
-                if (skillLevel < 1 || skillLevel > 10 ) {
+                if (skillLevel < 1 || skillLevel > 10 || skillUsefulness < 1 || skillUsefulness > 10) {
                     throw new NumberFormatException("Values must be between 1 and 10.");
                 }
 
@@ -135,3 +140,4 @@ public class SkillsScreen {
         dialog.setVisible(true);
     }
 }
+

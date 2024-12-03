@@ -17,7 +17,7 @@ public abstract class Skill {
         return skillLevel;
     }
 
-    public int getUsefullness() {
+    public int getUsefulness() {
         return skillUsefulness;
     }
 
@@ -34,15 +34,15 @@ public abstract class Skill {
         skillLevel = level;
     }
 
-    public void setUsefullness(int usefulness) {
+    public void setUsefulness(int usefulness) {
         skillUsefulness = usefulness;
     }
     // #region Constructors
-    public Skill(String name, String type, int level, int usefullness) {
+    public Skill(String name, String type, int level, int usefulness) {
         skillName = name;
         skillType = type;
         skillLevel = level;
-        skillUsefulness = usefullness;
+        skillUsefulness = usefulness;
     }
 
     public Skill() {
