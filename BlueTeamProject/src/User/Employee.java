@@ -61,7 +61,7 @@ public class Employee extends User
         }
     }
 
-
+    
 
     public void addPreviousJob(EmployeeJob job) {
         previousJobs.add(job);
@@ -78,12 +78,12 @@ public class Employee extends User
             System.out.println("Invalid job index.");
         }
     }
-
+    
 
     // Load job history from the database
     private void loadJobsFromDatabase() 
     {
-        try (BufferedReader reader = new BufferedReader(new FileReader(database))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) 
         {
             String line;
             while ((line = reader.readLine()) != null) 
@@ -104,7 +104,7 @@ public class Employee extends User
     // Save all jobs to the database for this employee
     private void saveAllJobsToDatabase() {
         List<String> allLines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(database))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -116,7 +116,7 @@ public class Employee extends User
             System.out.println("Error reading the database file.");
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(database))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
             for (String line : allLines) {
                 writer.write(line + "\n");
             }
