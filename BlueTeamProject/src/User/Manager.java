@@ -15,7 +15,13 @@ import java.io.IOException;
 public class Manager extends User {
 
     Employee[] employees = new Employee[20];
-    private final File FILEPATH = new File("src/employees.csv");
+    protected File database = new File("325-blue\\BlueTeamProject\\output\\employees.csv");
+    
+    public void testFile(){
+        System.out.println(database.getAbsolutePath());
+        System.out.println(database.getParentFile());
+        System.out.println(database);
+    }
 
     // Create a new employee and write to the database
     public void createEmployee(String empID, String fName, String lName) throws IOException {
@@ -32,7 +38,7 @@ public class Manager extends User {
         writeToDatabase(empID, fName, lName, email, uName, pass, jobs, skills);
 
         String employeeData = empID + "," + fName + "," + lName + ",,,,,";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
             writer.write(employeeData);
             writer.newLine();
             System.out.println("Employee created: " + employeeData);
@@ -50,12 +56,12 @@ public class Manager extends User {
 
 
         // Define a temporary file with a unique name
-        File originalFile = new File("325-blue\\BlueTeamProject\\src\\employees.csv");  // Path to the original file
+        File originalFile = database;  // Path to the original file
         File tempFile = new File(originalFile.getParent(), "tempFile.csv");  // Temp file in the same directory
         System.out.println("Temporary file created: " + tempFile.getAbsolutePath());
         Boolean updated = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
+        try (BufferedReader reader = new BufferedReader(new FileReader(database));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
             
@@ -86,10 +92,11 @@ public class Manager extends User {
             throw new RuntimeException("Employee ID not found in the database: " + id);
         }
 
-        File tempFile = new File(FILEPATH.getParent(), "tempFile.csv");
+        System.out.println(database.getParent());
+        File tempFile = new File(database.getParent(), "tempFile.csv");
         boolean deleted = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH));
+        try (BufferedReader reader = new BufferedReader(new FileReader(database));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 
             String line;
@@ -112,8 +119,10 @@ public class Manager extends User {
         }
     }
 
+
+
     public boolean inDatabase(String id) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(database))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith(id + ",")) {
@@ -129,7 +138,7 @@ public class Manager extends User {
 
     // Helper method to replace the original file with a temp file
     private void replaceOriginalFile(File tempFile) throws IOException {
-        if (FILEPATH.delete() && tempFile.renameTo(FILEPATH)) {
+        if (database.delete() && tempFile.renameTo(database)) {
             System.out.println("File updated successfully.");
         } else {
             throw new IOException("Failed to update the original file.");
@@ -137,12 +146,12 @@ public class Manager extends User {
     }
 
     // Get employee information
-    public String getEmployee(String id) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
+    public String[] getEmployee(String id) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(database))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith(id + ",")) {
-                    return line;
+                    return line.split(",");
                 }
             }
         }

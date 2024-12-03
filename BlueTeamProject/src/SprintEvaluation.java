@@ -18,7 +18,7 @@ public class SprintEvaluation {
 
     //temporary file save we can adjust later if we need to
     public void saveToFile() {
-        String file = "sprint_evaluation_" + employeeName + ".txt";
+        String file = "325-blue\\BlueTeamProject\\output\\sprint_evaluation_" + employeeName + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(dateOfEval + "\n");

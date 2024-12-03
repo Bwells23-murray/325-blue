@@ -15,7 +15,7 @@ public abstract class User {
 
     protected String password;  
 
-    public File FILEPATH = new File("325-blue\\BlueTeamProject\\src\\employees.csv");
+    public File database = new File("325-blue\\BlueTeamProject\\output\\employees.csv");
 
     public boolean login() {
         
@@ -143,7 +143,7 @@ public abstract class User {
     // Write User to Database
     protected void writeToDatabase(String empID, String fName, String lName) throws IOException {
         if (!inDatabase(empID)) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
                 String newRow = empID + "," + fName + "," + lName + ",null,null,null,null,null\n";
                 writer.write(newRow);
             }
@@ -155,7 +155,7 @@ public abstract class User {
     protected void writeToDatabase(String empID, String fName, String lName, String email, String uName, String pass) {
         try {
             if (!inDatabase(empID)) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
                     String newRow = empID + "," + fName + "," + lName + "," + email + "," + uName + "," +
                                     encryptPassword(pass) + ",null,null\n";
                     writer.write(newRow);
@@ -174,7 +174,7 @@ public abstract class User {
     {
         try {
             if (!inDatabase(empID)) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH, true))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(database, true))) {
                     String newRow = empID + "," + fName + "," + lName + "," + email + "," + uName + "," +
                                     encryptPassword(pass) + "," + arrayToCSV(jobs) + "," + arrayToCSV(skills) + "\n";
                     writer.write(newRow);
@@ -197,7 +197,7 @@ public abstract class User {
     }
 
     protected boolean inDatabase(String key) throws IOException {
-        try (Scanner scn = new Scanner(FILEPATH)) {
+        try (Scanner scn = new Scanner(database)) {
             while (scn.hasNextLine()) {
                 String[] values = scn.nextLine().split(",");
                 for (String value : values) {
@@ -209,7 +209,7 @@ public abstract class User {
         } catch (FileNotFoundException e) {
             System.out.println("Database file not found. Creating a new one.");
             try {
-                FILEPATH.createNewFile();
+                database.createNewFile();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
