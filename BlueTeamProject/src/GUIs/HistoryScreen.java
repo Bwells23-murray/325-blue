@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class HistoryScreen {
     private JFrame frame;
@@ -27,6 +28,7 @@ public class HistoryScreen {
         frame.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
         frame.getContentPane().setBackground(new Color(240, 230, 140));
         frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
 
@@ -38,11 +40,16 @@ public class HistoryScreen {
         // Job history display area
         historyArea = new JTextArea();
         historyArea.setEditable(false);
+        historyArea.setBackground(new Color(173, 216, 230)); // Light blue background for the text area
+        Border border = BorderFactory.createLineBorder(new Color(0, 0, 139), 2); // Dark blue border
+        historyArea.setBorder(border);
         JScrollPane scrollPane = new JScrollPane(historyArea);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Buttons panel
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(new Color(140, 190, 230)); // Set background color for button panel
+
         JButton addButton = new JButton("Add Job");
         JButton backButton = new JButton("Back");
 
@@ -51,7 +58,7 @@ public class HistoryScreen {
 
         // Back button
         backButton.addActionListener(e -> {
-            new ManagerScreen(); // Return to the ManagerScreen (make sure to define this class)
+            new ManagerScreen(); // Return to the ManagerScreen
             frame.dispose();
         });
 
@@ -81,6 +88,9 @@ public class HistoryScreen {
         dialog.setSize(300, 400);
         dialog.setLayout(new GridLayout(7, 2));
 
+        // Set background color for dialog components
+        dialog.getContentPane().setBackground(new Color(173, 216, 230));
+
         // Input fields for job details
         JTextField companyNameField = new JTextField();
         JTextField positionField = new JTextField();
@@ -88,13 +98,30 @@ public class HistoryScreen {
         JTextField endDateField = new JTextField("MMDDYYYY");
         JTextField salaryField = new JTextField();
 
+        // Create custom borders for the text fields
+        Border textFieldBorder = BorderFactory.createLineBorder(new Color(0, 0, 139), 2); // Darker blue border
+        companyNameField.setBackground(new Color(173, 216, 230));
+        companyNameField.setBorder(textFieldBorder);
+
+        positionField.setBackground(new Color(173, 216, 230));
+        positionField.setBorder(textFieldBorder);
+
+        startDateField.setBackground(new Color(173, 216, 230));
+        startDateField.setBorder(textFieldBorder);
+
+        endDateField.setBackground(new Color(173, 216, 230));
+        endDateField.setBorder(textFieldBorder);
+
+        salaryField.setBackground(new Color(173, 216, 230));
+        salaryField.setBorder(textFieldBorder);
+
         JButton saveButton = new JButton("Save");
         JButton cancelButton = new JButton("Cancel");
 
         // Add fields to the dialog
-        dialog.add(new JLabel("Company Name:"));
+        dialog.add(new JLabel("Description:"));
         dialog.add(companyNameField);
-        dialog.add(new JLabel("Position:"));
+        dialog.add(new JLabel("Title:"));
         dialog.add(positionField);
         dialog.add(new JLabel("Start Date:"));
         dialog.add(startDateField);
@@ -132,5 +159,3 @@ public class HistoryScreen {
         dialog.setVisible(true);
     }
 }
-
-

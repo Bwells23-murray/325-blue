@@ -17,8 +17,6 @@ public class SelectionScreen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         frame.setLayout(new BorderLayout());
 
-        // Set background color
-        frame.getContentPane().setBackground(new Color(173, 216, 230)); // Light blue background
 
         // Create a panel for buttons
         JPanel buttonPanel = new JPanel();

@@ -1,5 +1,6 @@
 package GUIs;
 
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+
 public class HomeScreen {
     private JFrame frame;
 
+
     public HomeScreen() throws IOException {
         frame = new JFrame("Home Screen");
+
         
         // Set the size and layout of the frame
         frame.setSize(300, 300);
@@ -26,7 +30,7 @@ public class HomeScreen {
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS)); // Stack components vertically
 
         // Add welcome label to the top panel
-        JLabel welcomeLabel = new JLabel("BLU");
+        JLabel welcomeLabel = new JLabel("BlooBerri");
         welcomeLabel.setForeground(Color.WHITE); // White text
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label
         topPanel.add(Box.createVerticalGlue()); // Add space above the label

@@ -2,6 +2,7 @@ package GUIs;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -26,22 +27,27 @@ public class EvaluationScreen {
         this.employeeID = employeeID;
     }
 
+
     public EvaluationScreen(){}
     
     public void startEvaluation() throws IOException {
+
         // Create the evaluation window (frame)
         JFrame evaluationFrame = new JFrame("Evaluation Screen");
         evaluationFrame.setSize(600, 600);
         evaluationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         evaluationFrame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
 
+        // Set layout and background color to match ManagerScreen
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(173, 216, 230));  // Setting the background color of the panel
 
         // Date input
         JTextField dateField = new JTextField(10);
         dateField.setText(LocalDate.now().toString());
         JPanel datePanel = new JPanel();
+        datePanel.setBackground(new Color(173, 216, 230));  // Ensuring background color for each panel
         datePanel.add(new JLabel("Date of Evaluation (yyyy-MM-dd):"));
         datePanel.add(dateField);
         panel.add(datePanel);
@@ -60,6 +66,7 @@ public class EvaluationScreen {
         for (int i = 0; i < questions.length; i++) {
             JPanel questionPanel = new JPanel();
             questionPanel.setLayout(new BoxLayout(questionPanel, BoxLayout.Y_AXIS));
+            questionPanel.setBackground(new Color(173, 216, 230));  // Setting background color for each question panel
             questionPanel.add(new JLabel(questions[i].getText()));
             answerFields[i] = new JTextField(50);
             questionPanel.add(answerFields[i]);
@@ -68,6 +75,8 @@ public class EvaluationScreen {
 
         // Submit button
         JButton submitButton = new JButton("Submit Evaluation");
+        submitButton.setFont(new Font("Arial", Font.PLAIN, 16));  // Matching font style
+        submitButton.setBackground(new Color(173, 216, 230));  // Optional: Add background color to button for consistency
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,7 +101,9 @@ public class EvaluationScreen {
         });
         panel.add(submitButton);
 
-        evaluationFrame.add(new JScrollPane(panel));
+        // Set the content pane and make the frame visible
+        evaluationFrame.setContentPane(panel);
+        evaluationFrame.setLocationRelativeTo(null);
         evaluationFrame.setVisible(true);
     }
 
@@ -110,8 +121,6 @@ public class EvaluationScreen {
         } catch (IOException e) {
             System.out.println("Error while trying to save the file, try again.");
             e.printStackTrace();
-
-            //(important note, this does save, but it saves as a text file)
         }
     }
-}
+}                     //this saves to a txt file currently
