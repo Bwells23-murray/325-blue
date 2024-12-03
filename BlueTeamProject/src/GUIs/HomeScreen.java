@@ -1,19 +1,27 @@
 package GUIs;
 
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+
 
 public class HomeScreen {
     private JFrame frame;
 
-    public HomeScreen() {
-        frame = new JFrame("Welcome");
+
+    public HomeScreen() throws IOException {
+        frame = new JFrame("Home Screen");
+
         
         // Set the size and layout of the frame
         frame.setSize(300, 300);
         frame.setLayout(new BorderLayout());
+        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
         
         // Create a panel for the top blue section
         JPanel topPanel = new JPanel();
@@ -58,7 +66,12 @@ public class HomeScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new LoginScreen();
+                try {
+                    new LoginScreen();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
 

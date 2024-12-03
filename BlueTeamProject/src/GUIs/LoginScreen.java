@@ -1,21 +1,25 @@
 package GUIs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class LoginScreen {
     private JFrame frame;
     private JTextField usernameField;
     private JTextField passwordField;
 
-    public LoginScreen() {
+    public LoginScreen() throws IOException {
         frame = new JFrame("Login");
         
         // Set the size and layout of the frame
         frame.setSize(300, 300);
         frame.setLayout(new BorderLayout());
+        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
         
         // Create a panel for the top section
         JPanel topPanel = new JPanel();
@@ -82,7 +86,12 @@ public class LoginScreen {
                     if(usernameField.getText().trim().equals("Bluser") && passwordField.getText().trim().equals("9998"))
                     {
                     EvaluationScreen evaluationScreen = new EvaluationScreen(null, null, null, null);  // Correct constructor
-                    evaluationScreen.startEvaluation();  // Start the evaluation process
+                    try {
+                        evaluationScreen.startEvaluation();
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }  // Start the evaluation process
                     frame.dispose(); // Close the current frame
                     }
                     else
@@ -99,7 +108,12 @@ public class LoginScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new HomeScreen(); // Go back to HomeScreen
+                try {
+                    new HomeScreen();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } // Go back to HomeScreen
             }
         });
 

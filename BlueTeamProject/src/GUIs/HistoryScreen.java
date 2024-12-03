@@ -2,7 +2,11 @@ package GUIs;
 
 import User.EmployeeJob;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -11,7 +15,7 @@ public class HistoryScreen {
     private JTextArea historyArea;
     private JobHistoryManager jobManager;
 
-    public HistoryScreen(JFrame previousFrame) {
+    public HistoryScreen(JFrame previousFrame) throws IOException {
         // Close the previous frame
         if (previousFrame != null) {
             previousFrame.dispose();
@@ -25,8 +29,8 @@ public class HistoryScreen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        // Set background color to match other screens
-        frame.getContentPane().setBackground(new Color(140,190,230));
+        frame.getContentPane().setBackground(new Color(240, 230, 140));
+        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
 
         // Title label
         JLabel historyLabel = new JLabel("Job History", SwingConstants.CENTER);

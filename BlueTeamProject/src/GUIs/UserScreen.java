@@ -1,20 +1,24 @@
 package GUIs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class UserScreen {
 
     private JFrame frame;
 
     // Constructor for initializing the UserScreen 
-    public UserScreen() {
+    public UserScreen() throws IOException {
         // Create the main frame
         frame = new JFrame("User Screen");
         frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
 
         // Create panel for the button
         JPanel panel = new JPanel();
@@ -42,7 +46,12 @@ public class UserScreen {
             public void run() {
                 frame.dispose();
                 EvaluationScreen evaluationScreen = new EvaluationScreen(null, null, null, null);  // Correct constructor
-                evaluationScreen.startEvaluation();  // Start the evaluation process
+                try {
+                    evaluationScreen.startEvaluation();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }  // Start the evaluation process
             }
         });
     }
@@ -57,8 +66,15 @@ public class UserScreen {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                UserScreen userScreen = new UserScreen();
-                userScreen.display();
+                UserScreen userScreen;
+                try {
+                    userScreen = new UserScreen();
+                    userScreen.display();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
             }
         });
     }

@@ -3,6 +3,8 @@ package GUIs;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.*;
 
 public class SelectionScreen {
@@ -58,8 +60,15 @@ public class SelectionScreen {
                 // Close the selection screen
                 frame.dispose();
                 // Open UserScreen
-                UserScreen userScreen = new UserScreen();
-                userScreen.display();
+                UserScreen userScreen;
+                try {
+                    userScreen = new UserScreen();
+                    userScreen.display();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
             }
         });
 

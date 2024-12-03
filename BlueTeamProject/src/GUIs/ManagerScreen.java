@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ManagerScreen {
     private JFrame frame;
@@ -27,7 +28,12 @@ public class ManagerScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Open JobHistoryScreen and close the current screen
-                new HistoryScreen(frame); // Pass the current frame to close it
+                try {
+                    new HistoryScreen(frame);
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } // Pass the current frame to close it
             }
         });
         frame.add(jobHistoryButton, BorderLayout.SOUTH);
