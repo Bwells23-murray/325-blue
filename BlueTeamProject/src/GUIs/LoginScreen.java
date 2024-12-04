@@ -19,7 +19,7 @@ public class LoginScreen {
         // Set the size and layout of the frame
         frame.setSize(300, 300);
         frame.setLayout(new BorderLayout());
-        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
         
         // Create a panel for the top section
         JPanel topPanel = new JPanel();
@@ -79,7 +79,12 @@ public class LoginScreen {
                 
                 if(usernameField.getText().trim().equals("BluAdmin") && passwordField.getText().trim().equals("1024"))
                 {
-                    new ScrollDisplayScreen(); // Open the selection screen
+                    try {
+                        new ManagerScreen();
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    } // Open the selection screen
                     frame.dispose(); // Close the current frame
                 } else
                 {

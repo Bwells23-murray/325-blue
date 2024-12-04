@@ -49,7 +49,12 @@ public class SelectionScreen {
                 // Close the selection screen
                 frame.dispose();
                 // Open ManagerScreen
-                new ManagerScreen();
+                try {
+                    new ManagerScreen();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }
         });
 

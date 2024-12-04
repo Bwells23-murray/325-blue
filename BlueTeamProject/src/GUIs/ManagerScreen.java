@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ManagerScreen {
     private JFrame frame;
 
-    public ManagerScreen() {
+    public ManagerScreen() throws IOException{
         frame = new JFrame("Manager Screen");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

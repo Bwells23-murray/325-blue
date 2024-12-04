@@ -1,5 +1,6 @@
 package GUIs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -12,11 +13,12 @@ public class ScrollDisplayScreen {
     private JFrame frame;
     private JTextArea textArea;
 
-    public ScrollDisplayScreen() {
+    public ScrollDisplayScreen() throws IOException {
         frame = new JFrame("View All Employees");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
         frame.setLayout(new BorderLayout());
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
 
         // Create JTextArea to display employees' information
         textArea = new JTextArea();
@@ -36,7 +38,7 @@ public class ScrollDisplayScreen {
     }
 
     private void loadEmployeeData() {
-        try (Scanner scn = new Scanner(new File("325-blue\\BlueTeamProject\\output\\employees.csv"))) {
+        try (Scanner scn = new Scanner(new File("BlueTeamProject\\output\\employees.csv"))) {
             StringBuilder employeeInfo = new StringBuilder();
 
             while (scn.hasNextLine()) {
@@ -73,7 +75,12 @@ public class ScrollDisplayScreen {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ScrollDisplayScreen();
+                try {
+                    new ScrollDisplayScreen();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }
