@@ -1,11 +1,8 @@
 package GUIs;
-// TODO Ethan pleasssse connect this to file to save evaluations
-//needs to save each evaluation to file after 
-//each evaluation must be specific to employee
-// specifc employee that isfilling out the form has been send to thispage from the log in
-//top of screen should show user you logged in with and who this evaluation should be specifc to
-import java.awt.Color;
-import java.awt.Font;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -15,16 +12,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 public class EvaluationScreen {
 
     private String managerName;
@@ -33,8 +20,10 @@ public class EvaluationScreen {
     private String employeeID;
     private LocalDate dateOfEval;
 
-    public EvaluationScreen(String employeeName, String employeeID) {
+    public EvaluationScreen(String managerName, String employeeName, String managerID, String employeeID) {
+        this.managerName = managerName;
         this.employeeName = employeeName;
+        this.managerID = managerID;
         this.employeeID = employeeID;
     }
 
@@ -54,13 +43,6 @@ public class EvaluationScreen {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(new Color(173, 216, 230));  // Setting the background color of the panel
 
-         // Add username display at the top
-    JLabel usernameLabel = new JLabel("Evaluation for: " + employeeName + " (ID: " + employeeID + ")");
-    usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));  // Bold and slightly larger font for visibility
-    usernameLabel.setForeground(Color.BLACK);                // Text color
-    usernameLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);    // Center alignment
-    panel.add(usernameLabel);
-
         // Date input
         JTextField dateField = new JTextField(10);
         dateField.setText(LocalDate.now().toString());
@@ -71,7 +53,6 @@ public class EvaluationScreen {
         
         datePanel.add(dateField);
         panel.add(datePanel);
-        
 
         // Questions and text areas
         JTextArea[] questions = new JTextArea[]{
