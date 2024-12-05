@@ -30,7 +30,7 @@ public class HistoryScreen {
         frame.setLayout(new BorderLayout());
 
         frame.getContentPane().setBackground(new Color(240, 230, 140));
-        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
 
         // Title label
         JLabel historyLabel = new JLabel("Job History", SwingConstants.CENTER);
@@ -58,7 +58,12 @@ public class HistoryScreen {
 
         // Back button
         backButton.addActionListener(e -> {
-            new ManagerScreen(); // Return to the ManagerScreen
+            try {
+                new ManagerScreen();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } // Return to the ManagerScreen
             frame.dispose();
         });
 

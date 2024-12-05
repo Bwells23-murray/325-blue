@@ -23,7 +23,7 @@ public class UserScreen {
         frame = new JFrame("User Screen");
         frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
 
         // Create panel for the button
         JPanel panel = new JPanel();

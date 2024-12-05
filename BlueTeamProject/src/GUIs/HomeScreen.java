@@ -21,7 +21,7 @@ public class HomeScreen {
         // Set the size and layout of the frame
         frame.setSize(300, 300);
         frame.setLayout(new BorderLayout());
-        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
         
         // Create a panel for the top blue section
         JPanel topPanel = new JPanel();

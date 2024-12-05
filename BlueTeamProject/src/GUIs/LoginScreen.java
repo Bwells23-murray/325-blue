@@ -33,8 +33,9 @@ public class LoginScreen {
         // Set the size and layout of the frame
         frame.setSize(300, 300);
         frame.setLayout(new BorderLayout());
-        frame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
-
+      
+        frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
+       
         // Create a panel for the top section
         JPanel topPanel = new JPanel();
         topPanel.setBackground(new Color(173, 216, 230)); // Light blue
@@ -89,11 +90,13 @@ public class LoginScreen {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
 
                 if (username.equals("BluAdmin") && password.equals("1024")) {
                     new ScrollDisplayScreen(); // Open the selection screen
+
                     frame.dispose(); // Close the current frame
                 } else {
                     try {

@@ -47,7 +47,7 @@ public class EvaluationScreen {
         JFrame evaluationFrame = new JFrame("Evaluation Screen");
         evaluationFrame.setSize(600, 600);
         evaluationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        evaluationFrame.setIconImage(ImageIO.read(new File("325-blue\\BlueTeamProject\\resources\\icon.png")));
+        evaluationFrame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
 
         // Set layout and background color to match ManagerScreen
         JPanel panel = new JPanel();
@@ -64,9 +64,11 @@ public class EvaluationScreen {
         // Date input
         JTextField dateField = new JTextField(10);
         dateField.setText(LocalDate.now().toString());
+        dateField.setEditable(false); //Date shouldn't be able to be changed to prevent inconsistencies
         JPanel datePanel = new JPanel();
         datePanel.setBackground(new Color(173, 216, 230));  // Ensuring background color for each panel
-        datePanel.add(new JLabel("Date of Evaluation (yyyy-MM-dd):"));
+        datePanel.add(new JLabel("Date of Evaluation:"));
+        
         datePanel.add(dateField);
         panel.add(datePanel);
         
@@ -127,7 +129,7 @@ public class EvaluationScreen {
     }
 
     private void saveToFile(String answers) {
-        String file = "325-blue\\BlueTeamProject\\output\\sprint_evaluation_" + employeeName + ".txt";
+        String file = "325-blue\\BlueTeamProject\\output\\sprint_evaluation_" + employeeName + "_" + dateOfEval + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(dateOfEval + "\n");

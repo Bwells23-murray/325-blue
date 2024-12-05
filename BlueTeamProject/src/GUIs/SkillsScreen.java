@@ -2,6 +2,8 @@ package GUIs;
 
 import Skill.*;
 import java.awt.*;
+import java.io.IOException;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -53,7 +55,12 @@ public class SkillsScreen {
 
         // Back button
         backButton.addActionListener(e -> {
-            new ManagerScreen(); // Return to the ManagerScreen
+            try {
+                new ManagerScreen();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } // Return to the ManagerScreen
             frame.dispose();
         });
 
