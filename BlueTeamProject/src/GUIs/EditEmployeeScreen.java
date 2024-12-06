@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,11 +25,12 @@ public class EditEmployeeScreen {
         this.managerDisplayScreen = managerDisplayScreen;  // Pass the display screen to refresh later
         // Close the manager display screen before opening the edit employee screen
         managerDisplayScreen.frame.dispose(); // Close the manager screen before opening edit screen
+        
         frame = new JFrame("Edit Employee");
         // Set the size and layout of the frame
         frame.setSize(400, 350);
         frame.getContentPane().setBackground(new Color(173, 216, 230));
-        frame.setLayout(new GridLayout(6, 2, 10, 10));
+        frame.setLayout(new GridLayout(7, 2, 10, 10));  // Increased grid rows to fit the back button
 
         // Create and add labels and text fields with borders
         frame.add(new JLabel("Employee ID:"));
@@ -101,6 +101,21 @@ public class EditEmployeeScreen {
                 }
             }
         });
+
+        // Create and add the back button to return to ManagerDisplayEmployeeScreen
+        JButton backButton = new JButton("Back");
+        backButton.setFont(backButton.getFont().deriveFont(16f)); // Optional font style
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Close the current window (EditEmployeeScreen)
+                frame.dispose();
+                // Reopen and show ManagerDisplayEmployeeScreen
+                managerDisplayScreen.frame.setVisible(true); // Make it visible again
+            }
+        });
+        
+        frame.add(backButton);  // Add back button to the frame
 
         // Final frame settings
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
