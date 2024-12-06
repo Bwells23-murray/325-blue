@@ -1,12 +1,11 @@
 package GUIs;
 
-//TODO ethan, Please make this work for editing specific employees, the csv file isn't working for me 
 import User.Manager;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,39 +16,41 @@ import javax.swing.border.LineBorder;
 public class EditEmployeeScreen {
     private JFrame frame;
     private Manager manager;
-    private ManagerDisplayEmployeeScreen managerDisplayScreen;  // Store reference to the manager display screen
+    private ManagerDisplayEmployeeScreen managerDisplayScreen;
     private JTextField empIDField, firstNameField, lastNameField, emailField;
 
-    public EditEmployeeScreen(ManagerDisplayEmployeeScreen managerDisplayScreen, Manager manager) {
+    public EditEmployeeScreen(ManagerDisplayEmployeeScreen managerDisplayScreen, Manager manager,
+                               String empID, String firstName, String lastName, String email, String username) {
         this.manager = manager;
-        this.managerDisplayScreen = managerDisplayScreen;  // Pass the display screen to refresh later
+        this.managerDisplayScreen = managerDisplayScreen;
+
         // Close the manager display screen before opening the edit employee screen
-        managerDisplayScreen.frame.dispose(); // Close the manager screen before opening edit screen
-        
+        managerDisplayScreen.frame.dispose();
+
         frame = new JFrame("Edit Employee");
-        // Set the size and layout of the frame
         frame.setSize(400, 350);
         frame.getContentPane().setBackground(new Color(173, 216, 230));
-        frame.setLayout(new GridLayout(7, 2, 10, 10));  // Increased grid rows to fit the back button
+        frame.setLayout(new GridLayout(7, 2, 10, 10));
 
         // Create and add labels and text fields with borders
         frame.add(new JLabel("Employee ID:"));
-        empIDField = new JTextField();
+        empIDField = new JTextField(empID);  // Pre-fill the employee ID
         empIDField.setBorder(new LineBorder(new Color(30, 60, 90), 2));
+        empIDField.setEditable(false);  // ID should not be editable
         frame.add(empIDField);
 
         frame.add(new JLabel("First Name:"));
-        firstNameField = new JTextField();
+        firstNameField = new JTextField(firstName);  // Pre-fill the first name
         firstNameField.setBorder(new LineBorder(new Color(30, 60, 90), 2));
         frame.add(firstNameField);
 
         frame.add(new JLabel("Last Name:"));
-        lastNameField = new JTextField();
+        lastNameField = new JTextField(lastName);  // Pre-fill the last name
         lastNameField.setBorder(new LineBorder(new Color(30, 60, 90), 2));
         frame.add(lastNameField);
 
         frame.add(new JLabel("Email:"));
-        emailField = new JTextField();
+        emailField = new JTextField(email);  // Pre-fill the email
         emailField.setBorder(new LineBorder(new Color(30, 60, 90), 2));
         frame.add(emailField);
 
@@ -79,10 +80,8 @@ public class EditEmployeeScreen {
                     }
 
                     try {
-                        // Update employee information in the database
-                        manager.editEmployee(empID, firstName, 2); // Edit first name
-                        manager.editEmployee(empID, lastName, 3); // Edit last name
-                        manager.editEmployee(empID, email, 4);   // Edit email
+                        // Update employee information in the CSV file via the manager
+                        updateEmployeeInCSV(empID, firstName, lastName, email);
 
                         // Display success message
                         JOptionPane.showMessageDialog(frame, "Employee updated: " + firstName + " " + lastName);
@@ -114,7 +113,7 @@ public class EditEmployeeScreen {
                 managerDisplayScreen.frame.setVisible(true); // Make it visible again
             }
         });
-        
+
         frame.add(backButton);  // Add back button to the frame
 
         // Final frame settings
@@ -123,12 +122,54 @@ public class EditEmployeeScreen {
         frame.setLocationRelativeTo(null); // Center the frame
     }
 
-    public static void main(String[] args) {
-        // Assuming we already have a Manager instance
-        Manager manager = new Manager();
-        // Create an instance of ManagerDisplayEmployeeScreen and pass it to EditEmployeeScreen
-        ManagerDisplayEmployeeScreen managerDisplayScreen = new ManagerDisplayEmployeeScreen();
-        managerDisplayScreen.frame.setVisible(true);  // Make sure the frame is visible
-        new EditEmployeeScreen(managerDisplayScreen, manager);  // Pass the instance to EditEmployeeScreen
+    // Method to update the employee in the CSV file
+    private void updateEmployeeInCSV(String empID, String firstName, String lastName, String email) throws IOException {
+        String filePath = "BlueTeamProject\\output\\employees.csv";
+        File file = new File(filePath);
+        File tempFile = new File(filePath + ".temp");
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String line;
+            boolean employeeFound = false;
+
+            // Read the file line by line
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields[0].equals(empID)) { // Check if employee ID matches
+                    // Update the employee details
+                    line = empID + "," + firstName + "," + lastName + "," + email + "," + empID;
+                    employeeFound = true;
+                }
+                writer.write(line + "\n");
+            }
+
+            if (!employeeFound) {
+                throw new IOException("Employee ID not found.");
+            }
+
+            // Close the resources
+            reader.close();
+            writer.close();
+
+            // Delete the original file and rename the temp file
+            if (file.exists() && !file.delete()) {
+                throw new IOException("Could not delete original file.");
+            }
+
+            if (!tempFile.renameTo(file)) {
+                throw new IOException("Could not rename temp file.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (reader != null) reader.close();
+            if (writer != null) writer.close();
+        }
     }
 }

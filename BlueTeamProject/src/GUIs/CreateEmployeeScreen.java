@@ -120,7 +120,7 @@ public class CreateEmployeeScreen {
         String username = empID;  // Assuming empID is used as username
         String employeeData = empID + "," + firstName + "," + lastName + "," + email + "," + username + "\n";
         // Define the full path to the CSV file
-        String filePath = "325-blue\\BlueTeamProject\\output\\employees.csv";
+        String filePath = "BlueTeamProject\\output\\employees.csv";
         // Append the new employee data to the CSV file at the specified path
         try (FileWriter writer = new FileWriter(filePath, true)) {
             writer.write(employeeData); // Append to the file

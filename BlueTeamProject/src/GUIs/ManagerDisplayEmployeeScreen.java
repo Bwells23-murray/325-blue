@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 //TODO ethan, please make sure all buttons in this work, especially delete employee,
-//as i cannot test any of them, without use of the csv file
+//as i cannot test any of them, without use of the csv file (can confirm that edit and delete do not work)
 public class ManagerDisplayEmployeeScreen extends Manager {
     static JFrame frame;
     private JPanel employeePanel;
@@ -188,8 +188,13 @@ public class ManagerDisplayEmployeeScreen extends Manager {
     }
     // Method to open the EditEmployeeScreen for the selected employee
     private void openEditEmployeeScreen(String empID, String firstName, String lastName, String email, String username) {
-        new EditEmployeeScreen(null, null);
+        // Create an instance of Manager to handle the employee data manipulation
+        Manager manager = new Manager();
+    
+        // Pass the employee data and the manager instance to EditEmployeeScreen
+        new EditEmployeeScreen(this, manager, empID, firstName, lastName, email, username);
     }
+    
     // Placeholder methods for the "History", "Skills", and "Evaluations" screens
     private void openHistoryScreen(String empID) throws IOException {
         new ViewHistoryScreen();
