@@ -1,10 +1,11 @@
-#Blue Team
+# Blue Team
 
 *CSC 325 - Advanced Object Oriented Programming*
 
 *Jahzara Broaster, Tucker Jones, Ethan Sexton, Landon Webb, Brooklyn Wells*
+
 ------------------------------------------------------------------------------
-##Team Stories
+## Team Stories
 
 1. As a Developer I need to create a GUI to allow for further creation of the features for this application.
 2. As a user I need to be able to create employees so that I can manage the workforce.
