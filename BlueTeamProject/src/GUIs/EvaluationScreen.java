@@ -1,7 +1,5 @@
 package GUIs;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class EvaluationScreen {
 
@@ -27,8 +27,7 @@ public class EvaluationScreen {
         this.employeeID = employeeID;
     }
 
-
-    public EvaluationScreen(){}
+    public EvaluationScreen() {}
     
     public void startEvaluation() throws IOException {
 
@@ -50,7 +49,6 @@ public class EvaluationScreen {
         JPanel datePanel = new JPanel();
         datePanel.setBackground(new Color(173, 216, 230));  // Ensuring background color for each panel
         datePanel.add(new JLabel("Date of Evaluation:"));
-        
         datePanel.add(dateField);
         panel.add(datePanel);
 
@@ -103,6 +101,24 @@ public class EvaluationScreen {
         });
         panel.add(submitButton);
 
+        // Back button to return to UserScreen
+        JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.PLAIN, 16));  // Matching font style
+        backButton.setBackground(new Color(173, 216, 230));  // Optional: Add background color to button for consistency
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Dispose the current frame and return to UserScreen
+                evaluationFrame.dispose();
+                try {
+                    new UserScreen();  // Initialize and display the UserScreen
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        panel.add(backButton);
+
         // Set the content pane and make the frame visible
         evaluationFrame.setContentPane(panel);
         evaluationFrame.setLocationRelativeTo(null);
@@ -125,4 +141,4 @@ public class EvaluationScreen {
             e.printStackTrace();
         }
     }
-}                     //this saves to a txt file currently
+}

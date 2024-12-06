@@ -1,19 +1,18 @@
 package User;
 
-import java.util.Arrays;
 import Skill.*;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Manager extends User {
 
     Employee[] employees = new Employee[20];
-    protected File database = new File("325-blue\\BlueTeamProject\\output\\employees.csv");
+    protected File database = new File("BlueTeamProject\\output\\employees.csv");
 
     public void testFile() {
         System.out.println(database.getAbsolutePath());
