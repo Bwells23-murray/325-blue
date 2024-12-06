@@ -1,11 +1,10 @@
 package GUIs;
-
+// TODO ANYONE please make these save to the cvs file for the specific user 
 import User.EmployeeJob;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -59,7 +58,7 @@ public class HistoryScreen {
         // Back button
         backButton.addActionListener(e -> {
             try {
-                new ManagerScreen();
+                new UserScreen();
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

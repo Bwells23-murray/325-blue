@@ -1,5 +1,6 @@
 package GUIs;
-
+//TODO Jaz or Ethan, please make the normal user in login screen go here, and also make 
+// this screen have jobHistory and Skills (the implementations are currently in managerScreen)
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +17,11 @@ public class UserScreen {
     public UserScreen() throws IOException {
         // Create the main frame
         frame = new JFrame("User Screen");
-        frame.setSize(400, 200);
+        frame.setSize(400, 300);  // Adjusted size for better visibility
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(ImageIO.read(new File("BlueTeamProject\\resources\\icon.png")));
 
-        // Create panel for the button
+        // Create a panel for the buttons with FlowLayout
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -34,8 +35,40 @@ public class UserScreen {
         });
         panel.add(openEvaluationButton);
 
-        // Set up frame layout (needs to be tinkered with, very ugly)
+        // Add "Job History" button
+        JButton jobHistoryButton = new JButton("Job History");
+        jobHistoryButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        jobHistoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open JobHistoryScreen and close the current screen
+                try {
+                    new HistoryScreen(frame);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        panel.add(jobHistoryButton);
+
+        // Add "Job Skills" button
+        JButton jobSkillsButton = new JButton("Job Skills");
+        jobSkillsButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        jobSkillsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open SkillsScreen and close the current screen
+                new SkillsScreen(frame);  // Pass the current frame to close it
+            }
+        });
+        panel.add(jobSkillsButton);
+
+        // Add the panel to the frame's content pane
         frame.getContentPane().add(panel);
+
+        // Center the frame on the screen and make it visible
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     // Method to open the evaluation screen

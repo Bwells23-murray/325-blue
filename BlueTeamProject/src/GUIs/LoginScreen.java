@@ -1,7 +1,5 @@
 package GUIs;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class LoginScreen {
     private JFrame frame;
@@ -82,15 +81,11 @@ public class LoginScreen {
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
                 if (username.equals("BluAdmin") && password.equals("1024")) {
-                    try {
-                        new ScrollDisplayScreen();
-                    } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    } // Open the selection screen
+                        new ManagerDisplayEmployeeScreen();
+                   
 
                     frame.dispose(); // Close the current frame
-                } else if (username.equals("Bluser") && password.equals("9998")){
+                } /*else if (username.equals("Bluser") && password.equals("9998")){
                      {
                         EvaluationScreen evaluationScreen = new EvaluationScreen(null, null, null, null); // Correct
                         
@@ -102,9 +97,9 @@ public class LoginScreen {
                             e1.printStackTrace();
                         }        
                     }
-                    } else {                                                                         // constructor
+                    } */ else {                                                                         // constructor
                         try {
-                            Scanner scn = new Scanner(new File("325-blue\\BlueTeamProject\\output\\employees.csv"));
+                            Scanner scn = new Scanner(new File("BlueTeamProject\\output\\employees.csv"));
                             boolean isValidUser = false;
                             // Validate credentials
                             while (scn.hasNextLine()) {
@@ -121,9 +116,9 @@ public class LoginScreen {
                                 }
                             }
 
-                            if (isValidUser) {
-                                EvaluationScreen evaluationScreenB = new EvaluationScreen(null, null, username, password);
-                                evaluationScreenB.startEvaluation(); // Start evaluation
+                            if (isValidUser) 
+                            {
+                                new UserScreen();
                                 frame.dispose();
                                 scn.close();
                             } else {
