@@ -119,31 +119,34 @@ public class ManagerDisplayEmployeeScreen extends Manager {
                         }
                     });
                     
-                    // Delete button
                     JButton deleteButton = new JButton("Delete");
                     deleteButton.setFont(new Font("Arial", Font.PLAIN, 12));
                     deleteButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                    // Get the employee ID from the current row
-                    String empID = employeeData[0];  // empID from the row
-
-                    // Confirm deletion
-                    int confirmDelete = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this employee?", "Delete Employee", JOptionPane.YES_NO_OPTION);
-                    if (confirmDelete == JOptionPane.YES_OPTION) {
-                    try {
-                     // Call delete method in Manager class (we need an instance of Manager)
-                     Manager manager = new Manager(); 
-                     manager.deleteEmployee(empID);  // Pass the empID to delete the employee
-                     JOptionPane.showMessageDialog(frame, "Employee deleted successfully.");
-
-                     // Reload the employee data to refresh the UI
-                    reloadEmployeeData();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(frame, "Error deleting employee: " + ex.getMessage());
-              }
-           }
-       }
-    });
+                        public void actionPerformed(ActionEvent e) {
+                            // Get the employee ID from the current row
+                            String empID = employeeData[0];  // empID from the row
+                    
+                            // Confirm deletion
+                            int confirmDelete = JOptionPane.showConfirmDialog(frame, 
+                                "Are you sure you want to delete this employee?", 
+                                "Delete Employee", JOptionPane.YES_NO_OPTION);
+                    
+                            if (confirmDelete == JOptionPane.YES_OPTION) {
+                                try {
+                                    // Create an instance of Manager to handle the employee data manipulation
+                                    Manager manager = new Manager(); 
+                                    manager.deleteEmployee(empID);  // Pass the empID to delete the employee
+                                    JOptionPane.showMessageDialog(frame, "Employee deleted successfully.");
+                    
+                                    // Reload the employee data to refresh the UI
+                                    reloadEmployeeData();
+                                } catch (IOException ex) {
+                                    JOptionPane.showMessageDialog(frame, "Error deleting employee: " + ex.getMessage());
+                                }
+                            }
+                        }
+                    });
+                    
 
 
                     // Add employee info and the buttons to the panel
@@ -170,7 +173,10 @@ public class ManagerDisplayEmployeeScreen extends Manager {
         }
     }
     public void reloadEmployeeData(){
-        loadEmployeeData();
+            employeePanel.removeAll();  // Remove all components from the panel
+            loadEmployeeData();  // Reload employee data from the CSV file
+            employeePanel.revalidate();  // Revalidate the panel
+            employeePanel.repaint();  // Repaint the panel to reflect changes
     }
     // Method to perform search based on the entered query
     private void performSearch() {
